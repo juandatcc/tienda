@@ -9,9 +9,11 @@ import { AuthService } from '../../core/services/auth.service';
   selector: 'app-main-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, CartSidebarComponent],
-  templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.css',
+  templateUrl: '../main-layout/main-layout.component.html',
+  styleUrl: '../main-layout/main-layout.component.css',
 })
+
+// Componente que define el layout principal de la aplicación
 export class MainLayoutComponent {
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
@@ -45,7 +47,7 @@ export class MainLayoutComponent {
    * Abre la página de login
    */
   openLogin(): void {
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/src/app/features/auth/login']);
   }
 
   /**
@@ -85,7 +87,7 @@ export class MainLayoutComponent {
   performSearch(): void {
     const query = this.searchInput?.nativeElement?.value?.trim() || this.searchQuery().trim();
     if (query) {
-      this.router.navigate(['/products'], { queryParams: { search: query } });
+      this.router.navigate(['/src/app/features/product-list'], { queryParams: { search: query } });
       this.searchQuery.set('');
       this.showSearchBar.set(false);
     }
@@ -95,7 +97,7 @@ export class MainLayoutComponent {
    * Navega directamente a productos
    */
   goToProducts(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/src/app/features/product-list']);
     this.closeMobileMenu();
   }
 

@@ -8,8 +8,10 @@
     <!-- Barra de navegación -->
     <nav class="navbar">
         <div class="nav-container">
-            <!-- Logo -->
+            <div class="nav-logo-wrapper">
+                <!-- Logo -->
             <a routerLink="/" class="nav-logo" (click)="closeMobileMenu()">Linksys Store</a>
+            </div>
 
             <!-- Navegación -->
             <div class="nav-links-wrapper">
@@ -23,33 +25,7 @@
                 </a>
             </div>
 
-            <!-- Barra de búsqueda -->
-            <div class="search-container">
-                <div class="search-bar" [class.search-active]="showSearchBar()">
-                    <input
-                        type="text"
-                        #searchInput
-                        [value]="searchQuery()"
-                        placeholder="Buscar productos..."
-                        (keyup.enter)="performSearch()"
-                        class="search-input"
-                    />
-                    <button (click)="performSearch()" class="search-btn" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                    </button>
-                </div>
-                <button (click)="toggleSearchBar()" class="search-toggle-btn" title="Buscar" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                </button>
-            </div>
+            
 
             <!-- Acciones -->
             <div class="nav-actions">

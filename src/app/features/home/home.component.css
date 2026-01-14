@@ -1,24 +1,19 @@
 /* Estilos específicos de HomeComponent - CSS Puro */
-@import 'tailwindcss';
 
 .hero-section {
   position: relative;
-  border-radius: 2.5rem;
+  border-radius: 3rem;
   overflow: hidden;
-  background-color: #051937;
-  color: white;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-  padding-left: 5rem;   /* Línea 8: modifica el ancho interno (padding izquierdo) */
-  padding-right: 10rem;  /* Línea 9: modifica el ancho interno (padding derecho) */
-  margin-bottom: 6rem;
+  background-color: #161616;
+  color: rgb(14, 13, 13);
+  padding-top: 7rem;
+
+  padding-left: 10rem;
+  height: 80vh;
+  width: 100vh;
   isolation: isolate;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   transform: skewY(1deg);
-  /* Ninguna línea dentro de este bloque modifica directamente el ancho total (no hay width, max-width ni min-width declarados).
-     Sin embargo, el padding-left y padding-right (líneas 8 y 9) afectan el ancho interno del contenido.
-     Para modificar el ancho explícitamente, deberías agregar width, max-width o min-width.
-  */
 }
 
 .hero-bg-container {
@@ -27,7 +22,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  transform: skewY(-1deg);
+  transform: skewY(-2deg);
 }
 
 .hero-bg-image {
@@ -39,8 +34,8 @@
   opacity: 0.3;
   background-size: cover;
   background-position: center;
-  z-index: -5;
-  background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+
+  background-image: img(url('/src/assets/banners/hero.jpg'));
   animation-duration: 20s;
   animation-direction: alternate;
   animation-iteration-count: infinite;
@@ -57,14 +52,13 @@
 }
 
 .hero-content {
-  max-width: 48rem;
+  max-width: 90rem;
   position: relative;
-  z-index: 10;
+  z-index: 70;
   transform: skewY(-1deg);
-
 }
 
-.gradient-text{
+.gradient-text {
   background: linear-gradient(to right, #7dd3fc, #5b8fb9, #bbe1fa);
   -webkit-background-clip: text;
   background-clip: text;
@@ -81,7 +75,6 @@
   font-weight: 600;
   margin-bottom: 1.5rem;
   border: 1px solid rgba(18, 78, 120, 0.3);
-  backdrop-filter: blur(12px);
 }
 
 .hero-title {
@@ -90,6 +83,7 @@
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  color: rgb(12, 12, 12);
 }
 
 @media (min-width: 768px) {
@@ -99,15 +93,12 @@
 }
 
 .gradient-text {
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  background: linear-gradient(to right, #7dd3fc, #5b8fb9, #bbe1fa);
+  color: white;
 }
 
 .hero-description {
   font-size: 1.25rem;
-  color: #cbd5e1;
+  color: #f8f8f9;
   margin-bottom: 2.5rem;
   max-width: 32rem;
   line-height: 1.625;
@@ -121,8 +112,8 @@
 }
 
 .btn-hero-primary {
-  background-color: #124e78;
-  color: white;
+  background-color: #0e0f10;
+  color: rgb(246, 244, 244);
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 2rem;
@@ -135,7 +126,7 @@
 }
 
 .btn-hero-primary:hover {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  box-shadow: white;
   transform: translateY(-0.25rem);
 }
 
@@ -156,14 +147,15 @@
   transform: translateY(-0.25rem);
 }
 
-/* Sección Destacada */
-.featured-section {
+/* Sección categorías */
+.categoria-section {
   margin-bottom: 6rem;
-  max-width: 64rem;
-  margin-left: auto;
+  max-width: 100rem;
+  margin-left: max-auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 10rem;
+  padding-right: 5rem;
+  margin-top: 10rem;
 }
 
 .featured-header {
@@ -215,7 +207,7 @@
 .category-card {
   position: relative;
   height: 20rem;
-  width: 100%;
+  width: 110%;
 
   border-radius: 1.5rem;
   overflow: hidden;
@@ -235,11 +227,11 @@
   left: 0;
   background-size: cover;
   background-position: center;
-  transition: transform 0.7s;
+  transition: transform 0.5s;
 }
 
 .category-card:hover .category-bg {
-  transform: scale(1.1);
+  transform: scale(1.5);
 }
 
 .category-overlay {

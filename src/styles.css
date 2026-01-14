@@ -2,24 +2,26 @@
 
 /* Colores Personalizados como Variables CSS */
 :root {
-  --color-primary: #124e78;
+  --color-primary: #131414;
   --color-primary-dark: #051937;
-  --color-primary-light: #5b8fb9;
+  --color-primary-light: #0f0f0f;
   --color-secondary: #051937;
-  --color-accent: #bbe1fa;
-  --color-accent-light: #d6efff;
-  --color-surface: #f8fbff;
-  --color-surface-hover: #ebf4fc;
+  --color-accent: #080808;
+  --color-accent-light: #0d0d0e;
+  --color-surface: #050505;
+
+  --color-surface-hover: #0d0d0e;
 }
 
 /* Reinicio Global y Estilos Base */
 html {
   scroll-behavior: smooth;
+  background-color: #fcfcfd;
 }
 
 body {
   height: 100%;
-  background-color: var(--color-surface);
+  background-color: rgb(17, 17, 17);
   color: var(--color-secondary);
   font-family: Inter, system-ui, sans-serif;
   margin: 0;
@@ -43,7 +45,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #0f0f0f;
   border-radius: 9999px;
 }
 
@@ -66,7 +68,7 @@ h6 {
 @layer components {
   .glass-panel {
     background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
+
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
@@ -193,6 +195,7 @@ h6 {
     transform: scale(0.98);
   }
 
+  /* Botones de eliminación */
   .btn-remove {
     width: 2rem;
     height: 2rem;
@@ -223,13 +226,15 @@ h6 {
     cursor: pointer;
   }
 
-  .btn-wishlist:hover {
+  /* */
+  hover de botones y controles .btn-wishlist:hover {
     box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
     transform: scale(1.1);
     background-color: var(--color-primary);
     color: white;
   }
 
+  /* Iconos y animaciones */
   .btn-wishlist:active {
     transform: scale(0.95);
   }
@@ -245,7 +250,6 @@ h6 {
     font-weight: 600;
     margin-bottom: 1.5rem;
     border: 1px solid rgba(18, 78, 120, 0.3);
-    backdrop-filter: blur(12px);
   }
 
   /* Enlaces y navegación */
@@ -260,11 +264,13 @@ h6 {
     transition: all 200ms;
   }
 
+  /* hover de Enlaces y navegación */
   .nav-link:hover {
     color: var(--color-primary-dark);
     background-color: rgba(18, 78, 120, 0.05);
   }
 
+  /* Subrayado de navegación */
   .nav-underline {
     position: absolute;
     bottom: 0;
@@ -275,6 +281,7 @@ h6 {
     transition: all 300ms;
   }
 
+  /* Enlaces y navegación */
   .nav-link:hover .nav-underline {
     width: 100%;
   }
@@ -288,11 +295,13 @@ h6 {
     position: relative;
   }
 
+  /* Selección de texto */
   .header-container::selection {
     background-color: var(--color-primary);
     color: white;
   }
 
+  /* Decoración de blob */
   .blob-decoration {
     position: absolute;
     top: -20%;
@@ -306,6 +315,7 @@ h6 {
     animation: float 6s ease-in-out infinite;
   }
 
+  /* Iconos y animaciones */
   @keyframes float {
     0%,
     100% {

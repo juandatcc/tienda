@@ -10,11 +10,9 @@
         <div class="filters-wrapper">
             <span class="filter-label">Filtrar:</span>
             <div class="select-container">
-                <select class="custom-select">
-                    <option>Todos los productos</option>
-                    <option>Portátiles</option>
-                    <option>Audio</option>
-                    <option>Accesorios</option>
+                <select class="custom-select" aria-label="Filtrar productos por categoría" (change)="onCategoryChange($any($event.target).value)">
+                    <option value="">Todos los productos</option>
+                    <option *ngFor="let c of categories()" [value]="c.idCategoria">{{ c.nombre }}</option>
                 </select>
                 <div class="select-icon-wrapper">
                     <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,11 +30,11 @@
     </div>
 
     <div *ngIf="!loading()" class="product-grid">
-        <app-product-card *ngFor="let product of products()" [product]="product" class="h-full"></app-product-card>
+        <app-product-card *ngFor="let product of filteredProducts()" [product]="product" class="h-full"></app-product-card>
     </div>
 
     <!-- Empty State -->
-    <div *ngIf="!loading() && products().length === 0" class="empty-state-card">
+    <div *ngIf="!loading() && filteredProducts().length === 0" class="empty-state-card">
         <div class="empty-icon-container">
             <svg xmlns="http://www.w3.org/2000/svg" class="empty-state-svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -47,6 +45,6 @@
         <h3 class="empty-title">No se encontraron productos</h3>
         <p class="empty-description">Intenta ajustar los filtros de búsqueda o regresa más tarde para ver nuevas
             colecciones.</p>
-        <button class="btn-clear-filters">Limpiar Filtros</button>
+        <button class="btn-clear-filters" (click)="onCategoryChange('')">Limpiar Filtros</button>
     </div>
 </div>
