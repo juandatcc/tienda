@@ -1,0 +1,300 @@
+/* Estilos específicos de HomeComponent - CSS Puro */
+@import 'tailwindcss';
+
+.hero-section {
+  position: relative;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  background-color: #051937;
+  color: white;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  padding-left: 5rem;   /* Línea 8: modifica el ancho interno (padding izquierdo) */
+  padding-right: 10rem;  /* Línea 9: modifica el ancho interno (padding derecho) */
+  margin-bottom: 6rem;
+  isolation: isolate;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: skewY(1deg);
+  /* Ninguna línea dentro de este bloque modifica directamente el ancho total (no hay width, max-width ni min-width declarados).
+     Sin embargo, el padding-left y padding-right (líneas 8 y 9) afectan el ancho interno del contenido.
+     Para modificar el ancho explícitamente, deberías agregar width, max-width o min-width.
+  */
+}
+
+.hero-bg-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: skewY(-1deg);
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.3;
+  background-size: cover;
+  background-position: center;
+  z-index: -5;
+  background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  animation-duration: 20s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to right, #051937, rgba(5, 25, 55, 0.9), transparent);
+  z-index: -10;
+}
+
+.hero-content {
+  max-width: 48rem;
+  position: relative;
+  z-index: 10;
+  transform: skewY(-1deg);
+
+}
+
+.gradient-text{
+  background: linear-gradient(to right, #7dd3fc, #5b8fb9, #bbe1fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.new-badge {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(241, 242, 244, 0.2);
+  color: #a5d8ff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(18, 78, 120, 0.3);
+  backdrop-filter: blur(12px);
+}
+
+.hero-title {
+  font-size: 3.75rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+.gradient-text {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background: linear-gradient(to right, #7dd3fc, #5b8fb9, #bbe1fa);
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  margin-bottom: 2.5rem;
+  max-width: 32rem;
+  line-height: 1.625;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.btn-hero-primary {
+  background-color: #124e78;
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-size: 1.125rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-hero-primary:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  transform: translateY(-0.25rem);
+}
+
+.btn-hero-outline {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-hero-outline:hover {
+  background-color: rgba(14, 14, 14, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-0.25rem);
+}
+
+/* Sección Destacada */
+.featured-section {
+  margin-bottom: 6rem;
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.featured-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: #64748b;
+}
+
+.view-all-link {
+  color: #124e78;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  transition: background-color 0.3s;
+}
+
+.view-all-link:hover {
+  color: #051937;
+  background-color: rgba(18, 78, 120, 0.05);
+}
+
+.grid-categories {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid-categories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.category-card {
+  position: relative;
+  height: 20rem;
+  width: 100%;
+
+  border-radius: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+}
+
+.category-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.7s;
+}
+
+.category-card:hover .category-bg {
+  transform: scale(1.1);
+}
+
+.category-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4), transparent);
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.category-card:hover .category-overlay {
+  opacity: 0.7;
+}
+
+.category-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 2rem;
+  transform: translateY(0.5rem);
+  transition: transform 0.3s;
+}
+
+.category-card:hover .category-content {
+  transform: translateY(0);
+}
+
+.category-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.category-title {
+  font-size: 1.875rem;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.category-desc {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+  transform: translateY(1rem);
+}
+
+.group:hover .category-desc {
+  opacity: 1;
+  transform: translateY(0);
+}

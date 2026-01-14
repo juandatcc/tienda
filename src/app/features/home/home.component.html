@@ -1,0 +1,83 @@
+<!-- Sección Heroica -->
+<section class="hero-section">
+    <div class="hero-bg-container">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+        <span class="new-badge">
+            🚀 Nueva Colección 2026
+        </span>
+        <h1 class="hero-title">
+            Eleva tu <br>
+            <span class="gradient-text">Estilo de Vida</span>
+        </h1>
+        <p class="hero-description">
+            Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en
+            un solo lugar.
+        </p>
+        <div class="hero-actions">
+            <a routerLink="/products" class="btn-hero-primary">
+                Ver Colección
+            </a>
+            <a href="#featured" class="btn-hero-outline">
+                Lo más nuevo
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Cuadrícula de Categorías Destacadas -->
+<section id="featured" class="featured-section">
+    <div class="featured-header">
+        <div>
+            <h2 class="section-title">Categorías Destacadas</h2>
+            <p class="section-subtitle">Explora por tipo de producto</p>
+        </div>
+        <a routerLink="/products" class="view-all-link">
+            Ver todas <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+    </div>
+
+    <div class="grid-categories">
+        <!-- Category Card 1 -->
+        <div class="category-card">
+            <div class="category-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="category-overlay"></div>
+            <div class="category-content">
+                <span class="category-tag text-indigo-400">Premium</span>
+                <h3 class="category-title">Portátiles</h3>
+                <p class="category-desc">Potencia de última generación para profesionales.</p>
+            </div>
+        </div>
+
+        <!-- Category Card 2 -->
+        <div class="category-card">
+            <div class="category-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="category-overlay"></div>
+            <div class="category-content">
+                <span class="category-tag text-accent-light">Inmersivo</span>
+                <h3 class="category-title">Audio</h3>
+                <p class="category-desc">Experimenta el sonido como nunca antes.</p>
+            </div>
+        </div>
+
+        <!-- Category Card 3 -->
+        <div class="category-card">
+            <div class="category-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="category-overlay"></div>
+            <div class="category-content">
+                <span class="category-tag text-emerald-400">Esenciales</span>
+                <h3 class="category-title">Accesorios</h3>
+                <p class="category-desc">El complemento perfecto para tu setup.</p>
+            </div>
+        </div>
+    </div>
+</section>

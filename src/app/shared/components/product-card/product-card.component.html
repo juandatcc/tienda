@@ -1,0 +1,45 @@
+<div class="card-container">
+    <!-- Image -->
+    <div class="image-wrapper">
+        <img [src]="product.imageUrl || 'https://via.placeholder.com/300'" [alt]="product.name" class="product-image" />
+        <div class="image-overlay"></div>
+
+        <!-- Quick Action Badge (Stock) -->
+        <div class="stock-badge-wrapper">
+            <span *ngIf="product.stock < 5" class="stock-badge">
+                ¡Pocas unidades!
+            </span>
+        </div>
+
+        <!-- Quick Action Button -->
+        <div class="quick-action-wrapper">
+            <button (click)="addToCart($event)" class="btn-add-cart" title="Añadir al carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="8" cy="21" r="1" />
+                    <circle cx="19" cy="21" r="1" />
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                    <path d="M12 10v6" />
+                    <path d="M9 13h6" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="card-content">
+        <h3 class="card-title">
+            <a [routerLink]="['/products', product.id]">
+                {{ product.name }}
+            </a>
+        </h3>
+        <p class="card-description">{{ product.description }}</p>
+
+        <div class="card-footer">
+            <span class="price-text">{{ product.price | currency }}</span>
+            <a [routerLink]="['/products', product.id]" class="details-link">
+                Ver Detalles
+            </a>
+        </div>
+    </div>
+</div>

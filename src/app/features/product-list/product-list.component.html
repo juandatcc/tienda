@@ -1,0 +1,52 @@
+<div class="product-list-container">
+    <!-- Header -->
+    <div class="pl-header">
+        <div>
+            <h1 class="pl-title">Nuestros Productos</h1>
+            <p class="pl-subtitle">Explora la última tecnología seleccionada para ti. Calidad garantizada.</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-wrapper">
+            <span class="filter-label">Filtrar:</span>
+            <div class="select-container">
+                <select class="custom-select">
+                    <option>Todos los productos</option>
+                    <option>Portátiles</option>
+                    <option>Audio</option>
+                    <option>Accesorios</option>
+                </select>
+                <div class="select-icon-wrapper">
+                    <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid -->
+    <div *ngIf="loading()" class="product-grid">
+        <!-- Skeleton Loaders -->
+        <div *ngFor="let i of [1,2,3,4,5,6,7,8]" class="skeleton-card"></div>
+    </div>
+
+    <div *ngIf="!loading()" class="product-grid">
+        <app-product-card *ngFor="let product of products()" [product]="product" class="h-full"></app-product-card>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading() && products().length === 0" class="empty-state-card">
+        <div class="empty-icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" class="empty-state-svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+        <h3 class="empty-title">No se encontraron productos</h3>
+        <p class="empty-description">Intenta ajustar los filtros de búsqueda o regresa más tarde para ver nuevas
+            colecciones.</p>
+        <button class="btn-clear-filters">Limpiar Filtros</button>
+    </div>
+</div>

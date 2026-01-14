@@ -1,0 +1,54 @@
+<div>
+    <h1 class="register-header">Crear Cuenta</h1>
+    <p class="register-subheader">Únete a nosotros y disfruta de la experiencia completa.</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <div class="form-group">
+            <label for="fullName" class="form-label">Nombre Completo</label>
+            <input type="text" id="fullName" formControlName="fullName" class="form-input"
+                [class.border-red-500]="isInvalid('fullName')" placeholder="Juan Pérez">
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-input"
+                [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" id="password" formControlName="password" class="form-input"
+                [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+            <label for="phone" class="form-label">Teléfono</label>
+            <input type="tel" id="phone" formControlName="phone" class="form-input" placeholder="+57 300 123 4567">
+        </div>
+
+        <div class="form-group">
+            <label for="address" class="form-label">Dirección</label>
+            <input type="text" id="address" formControlName="address" class="form-input"
+                placeholder="Calle 123 # 45-67">
+        </div>
+
+        <div class="form-group">
+            <label for="adminCode" class="form-label">Código de Administrador (Opcional)</label>
+            <input type="text" id="adminCode" formControlName="adminCode" class="form-input"
+                placeholder="Código secreto">
+        </div>
+
+        <div *ngIf="error()" class="error-alert">
+            {{ error() }}
+        </div>
+
+        <app-button type="submit" [fullWidth]="true" [loading]="loading()">
+            Registrarse
+        </app-button>
+
+        <p class="login-prompt">
+            ¿Ya tienes cuenta?
+            <a routerLink="../login" class="login-link">Inicia Sesión</a>
+        </p>
+    </form>
+</div>

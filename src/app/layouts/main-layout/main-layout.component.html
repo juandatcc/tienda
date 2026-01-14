@@ -1,0 +1,231 @@
+<div class="layout-container">
+    <!-- Decorative background blobs -->
+    <div class="bg-blobs-container">
+        <div class="blob-primary"></div>
+        <div class="blob-accent"></div>
+    </div>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a routerLink="/" class="nav-logo" (click)="closeMobileMenu()">Linksys Store</a>
+
+            <!-- Navegación -->
+            <div class="nav-links-wrapper">
+                <a routerLink="/" class="nav-link" (click)="closeMobileMenu()">
+                    Inicio
+                    <span class="nav-link-underline"></span>
+                </a>
+                <a routerLink="/products" class="nav-link" (click)="closeMobileMenu()">
+                    Productos
+                    <span class="nav-link-underline"></span>
+                </a>
+            </div>
+
+            <!-- Barra de búsqueda -->
+            <div class="search-container">
+                <div class="search-bar" [class.search-active]="showSearchBar()">
+                    <input
+                        type="text"
+                        #searchInput
+                        [value]="searchQuery()"
+                        placeholder="Buscar productos..."
+                        (keyup.enter)="performSearch()"
+                        class="search-input"
+                    />
+                    <button (click)="performSearch()" class="search-btn" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button (click)="toggleSearchBar()" class="search-toggle-btn" title="Buscar" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Acciones -->
+            <div class="nav-actions">
+                <!-- Carrito -->
+                <button (click)="cartService.toggleCart()" class="cart-btn" title="Carrito de compras" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="cart-icon">
+                        <circle cx="8" cy="21" r="1" />
+                        <circle cx="19" cy="21" r="1" />
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                    </svg>
+                    @if (cartService.count() > 0) {
+                    <span class="cart-badge">{{ cartService.count() }}</span>
+                    }
+                </button>
+
+                <!-- Usuario Autenticado -->
+                @if (authService.currentUser()) {
+                    <div class="user-menu-container">
+                        <button (click)="toggleUserMenu()" class="user-btn" [title]="'Hola, ' + (authService.currentUser()?.email || 'Usuario')" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="user-email">{{ authService.currentUser()?.email }}</span>
+                        </button>
+
+                        <!-- Menú Desplegable -->
+                        @if (showUserMenu()) {
+                            <div class="user-menu-dropdown">
+                                <div class="user-menu-header">
+                                    <span>{{ authService.currentUser()?.fullName || authService.currentUser()?.email }}</span>
+                                    @if (authService.currentUser()?.role === 'admin') {
+                                        <span class="admin-badge">Admin</span>
+                                    }
+                                </div>
+                                <hr class="menu-divider" />
+                                
+                                <!-- Opciones del Menú -->
+                                <button (click)="closeUserMenu()" routerLink="/profile" class="menu-item" type="button">
+                                    Mi Perfil
+                                </button>
+                                <button (click)="closeUserMenu()" routerLink="/orders" class="menu-item" type="button">
+                                    Mis Pedidos
+                                </button>
+
+                                @if (authService.currentUser()?.role === 'admin') {
+                                    <hr class="menu-divider" />
+                                    <button (click)="closeUserMenu()" routerLink="/admin" class="menu-item admin-item" type="button">
+                                        Panel de Administrador
+                                    </button>
+                                }
+
+                                <hr class="menu-divider" />
+                                <button (click)="logout()" class="menu-item logout-item" type="button">
+                                    Cerrar Sesión
+                                </button>
+                            </div>
+                        }
+                    </div>
+                } @else {
+                    <!-- Botón de Iniciar Sesión -->
+                    <button routerLink="/auth/login" class="login-btn" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+                }
+
+                <!-- Botón menú móvil -->
+                <button (click)="toggleMobileMenu()" class="mobile-menu-btn" type="button">
+                    @if (showMobileMenu()) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    } @else {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    }
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        @if (showMobileMenu()) {
+            <div class="mobile-menu">
+                <a routerLink="/" class="mobile-menu-item" (click)="goToHome()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Inicio
+                </a>
+                <a routerLink="/products" class="mobile-menu-item" (click)="goToProducts()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Productos
+                </a>
+                <a routerLink="/cart" class="mobile-menu-item" (click)="goToCart()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Carrito
+                </a>
+            </div>
+        }
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="space-y-4 footer-brand">
+                <h3>Linksys Store</h3>
+                <p>Tu destino premium para tecnología de vanguardia. Calidad y diseño sin compromisos.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Explorar</h4>
+                <ul>
+                    <li><a href="#" class="footer-link">Productos</a></li>
+                    <li><a href="#" class="footer-link">Categorías</a></li>
+                    <li><a href="#" class="footer-link">Nuevos lanzamientos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="#" class="footer-link">Sobre Nosotros</a></li>
+                    <li><a href="#" class="footer-link">Contacto</a></li>
+                    <li><a href="#" class="footer-link">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#" class="footer-link">Privacidad</a></li>
+                    <li><a href="#" class="footer-link">Términos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Linksys Store. Todos los derechos reservados.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <!-- Social placeholder -->
+                <div class="social-icon">
+                    <span class="font-bold">X</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <app-cart-sidebar />
+</div>

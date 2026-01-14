@@ -1,0 +1,130 @@
+<div class="cart-container">
+    <div class="cart-header-section">
+        <h1 class="cart-title">Tu Carrito</h1>
+        <span class="cart-count">{{ cartService.count() }} productos</span>
+    </div>
+
+    <div *ngIf="cartService.items().length > 0; else emptyCart" class="cart-grid">
+        <!-- Lista de Items del Carrito -->
+        <div class="cart-items-column">
+            <div *ngFor="let item of cartService.items()" class="cart-item-card">
+                <div class="item-info-wrapper">
+                    <div class="item-image-container">
+                        <img [src]="item.product.imageUrl || 'https://via.placeholder.com/100'" class="item-image">
+                    </div>
+
+                    <div class="item-details">
+                        <h3>{{ item.product.name }}</h3>
+                        <p>{{ item.product.category }}</p>
+                    </div>
+                </div>
+
+                <div class="item-actions-wrapper">
+                    <p class="item-price">{{ (item.product.price * item.quantity) | currency }}</p>
+
+                    <div class="quantity-controls">
+                        <button (click)="cartService.updateQuantity(item.product.id, item.quantity - 1)"
+                            class="qty-btn-minus" [disabled]="item.quantity <= 1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M5 12h14" />
+                            </svg>
+                        </button>
+                        <span class="qty-display">{{ item.quantity }}</span>
+                        <button (click)="cartService.updateQuantity(item.product.id, item.quantity + 1)"
+                            class="qty-btn-plus">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M5 12h14" />
+                                <path d="M12 5v14" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button (click)="cartService.removeFromCart(item.product.id)" class="remove-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="group-hover:scale-110 transition-transform">
+                            <path d="M3 6h18" />
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                        </svg>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen del Pedido -->
+        <div class="summary-column">
+            <div class="summary-card">
+                <h2 class="summary-title">
+                    Resumen
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-primary">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                </h2>
+
+                <div class="space-y-4 mb-8">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span class="summary-value">{{ cartService.total() | currency }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Envío estimado</span>
+                        <span class="shipping-badge">Gratis</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Impuestos</span>
+                        <span class="text-slate-400">Calculado al pagar</span>
+                    </div>
+                </div>
+
+                <div class="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent my-6"></div>
+
+                <div class="summary-total">
+                    <span class="text-slate-900 font-medium">Total Estimado</span>
+                    <span class="total-amount">{{ cartService.total() | currency }}</span>
+                </div>
+
+                <app-button [fullWidth]="true" size="lg" (onClick)="proceedToCheckout()"
+                    class="shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-shadow">Checkout
+                    Seguro</app-button>
+
+                <p class="secure-msg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    Transacción encriptada de extremo a extremo
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #emptyCart>
+        <div class="empty-cart-container">
+            <div class="empty-icon-wrapper">
+                <div class="empty-icon-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="empty-svg">
+                    <circle cx="8" cy="21" r="1" />
+                    <circle cx="19" cy="21" r="1" />
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                    <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+            </div>
+            <h2 class="empty-title">Tu carrito está vacío</h2>
+            <p class="empty-desc">¿No sabes por dónde empezar? Descubre nuestras últimas novedades.</p>
+            <app-button routerLink="/products" size="lg" class="btn-explore">Explorar Tienda</app-button>
+        </div>
+    </ng-template>
+</div>
