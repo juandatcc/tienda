@@ -4,13 +4,15 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { User, AuthResponse } from '../models/user.model';
 import { Router } from '@angular/router';
+import { CartService } from './cart.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private cartService = inject(CartService);
   private apiUrl = `${environment.apiUrl}/auth`;
 
   /** Signal que contiene el usuario actual o null si no hay sesión */
@@ -34,11 +36,11 @@ export class AuthService {
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
     const payload = {
       correo: credentials.email,
-      contrasena: credentials.password
+      contrasena: credentials.password,
     };
 
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, payload).pipe(
-      tap(response => {
+      tap((response) => {
         this.saveSession(response);
       })
     );
@@ -49,29 +51,48 @@ export class AuthService {
    * @param userData Datos del usuario a registrar
    * @returns Observable con la respuesta de autenticación
    */
-  register(userData: { fullName: string; email: string; password: string; phone?: string; address?: string; role: string }): Observable<AuthResponse> {
-    // Asumimos mapeo similar para registro, aunque no se proporcionó el DTO específico
+  register(userData: {
+    fullName: string;
+    email: string;
+    password: string;
+    phone?: string;
+    address?: string;
+    adminCode?: string;
+  }): Observable<AuthResponse> {
     const payload = {
       nombre: userData.fullName,
       correo: userData.email,
       contrasena: userData.password,
       telefono: userData.phone,
       direccion: userData.address,
-      rol: userData.role
+      codigoAdmin: userData.adminCode,
     };
 
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload).pipe(
-      tap(response => {
+      tap((response) => {
         this.saveSession(response);
       })
     );
   }
 
   /**
-   * Cierra la sesión del usuario actual y limpia el almacenamiento local.
-   * Redirige a la página de login.
+   * Cierra la sesión del usuario actual llamando al backend para invalidar el token
+   * y limpiando el almacenamiento local. Redirige a la página de login.
    */
   logout() {
+    // Intentamos notificar al backend; si falla, igualmente limpiamos la sesión local
+    this.http.post<void>(`${this.apiUrl}/logout`, {}).subscribe({
+      next: () => {
+        this.clearSession();
+      },
+      error: () => {
+        // Aun en caso de error, retirar la sesión localmente
+        this.clearSession();
+      },
+    });
+  }
+
+  private clearSession() {
     this.currentUser.set(null);
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem('token');
@@ -86,16 +107,19 @@ export class AuthService {
    * @param response Respuesta de autenticación con token, correo y rol
    */
   private saveSession(response: AuthResponse) {
+    const role = response.rol.replace('ROLE_', '');
+
     const user: User = {
       email: response.correo,
-      role: response.rol, // Validar si el backend envía 'ADMIN' o 'ROLE_ADMIN'
-      token: response.token
+      role: role, // ADMIN | USER
+      token: response.token,
     };
 
     this.currentUser.set(user);
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(user));
-    }
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('user', JSON.stringify(user));
+
+    this.cartService.loadServerCart();
   }
+
 }

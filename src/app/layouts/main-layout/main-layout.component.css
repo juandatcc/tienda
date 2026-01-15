@@ -1,7 +1,5 @@
-
-
+@import 'tailwindcss';
 /* Estilos específicos de MainLayoutComponent - CSS Puro */
-
 
 .layout-container {
   min-height: 200vh;
@@ -57,31 +55,37 @@
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(137, 135, 135, 0.2);
-  transition: all 0.3s;
+
+  z-index: 70;
+  background: black;
+  border-bottom: 1px solid rgba(13, 13, 13, 0.509);
+  transition: all 0.1s;
 }
 
 /* Contenedor de la Barra de Navegación */
 .nav-container {
-  max-width: 64rem;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   height: 5rem;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Contenedor Logo  */
+.nav-logo-wrapper {
+  flex-grow: 1;
+}
+
 /* Logo de la Barra de Navegación */
 .nav-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #124e78, #4f46e5, #bbe1fa);
+  font-size: 1.7rem;
+  font-weight: 550;
+  background: linear-gradient(to right, #f2f3f4, #f7f7f8, #f4e5e5);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -97,8 +101,10 @@
 
 /* Enlaces de la Barra de Navegación */
 .nav-links-wrapper {
-  display: none;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  align-content: center;
   gap: 2.5rem;
 }
 
@@ -114,7 +120,7 @@
   position: relative;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #475569;
+  color: #f6f7f9;
   transition: color 0.3s;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -122,7 +128,7 @@
 
 /* Hover en los Enlaces de la Barra de Navegación */
 .nav-link:hover {
-  color: #124e78;
+  color: #40d772;
 }
 
 /* Subrayado en los Enlaces de la Barra de Navegación */
@@ -132,7 +138,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #124e78;
+  background-color: #40d772;
   transition: width 0.3s;
 }
 
@@ -161,14 +167,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #374151;
+  color: #f7f8f9;
   transition: all 0.3s;
   border-radius: 0.5rem;
 }
 
 .search-toggle-btn:hover {
   background-color: rgba(226, 232, 240, 0.8);
-  color: #124e78;
+  color: #40d772;
 }
 
 .search-bar {
@@ -234,12 +240,12 @@
   display: none;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #475569;
+  color: #f0f1f3;
   transition: color 0.3s;
 }
 
 .login-link:hover {
-  color: #124e78;
+  color: #ebeff2;
 }
 
 @media (min-width: 768px) {
@@ -302,12 +308,12 @@
 }
 
 .cart-icon {
-  color: #374151;
+  color: #f3f3f4;
   transition: color 0.3s;
 }
 
 .cart-btn:hover .cart-icon {
-  color: #124e78;
+  color: #40d772;
 }
 
 .cart-badge {
@@ -351,7 +357,6 @@
 /* Pie de Página (Footer) */
 .footer {
   background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
   border-top: 1px solid #e2e8f0;
   padding-top: 4rem;
   padding-bottom: 3rem;

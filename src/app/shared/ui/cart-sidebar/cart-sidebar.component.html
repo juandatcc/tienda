@@ -43,8 +43,7 @@
                 @for (item of cartService.items(); track item.product.id) {
                 <div class="cart-item">
                     <div class="item-image">
-                        <img [src]="item.product.imageUrl || 'https://via.placeholder.com/150'"
-                            [alt]="item.product.name" class="w-full h-full object-cover">
+                        // Imagen del producto
                     </div>
                     <div class="flex-1 min-w-0">
                         <h4 class="font-bold text-gray-900 text-sm line-clamp-2 mb-1 leading-snug">{{ item.product.name

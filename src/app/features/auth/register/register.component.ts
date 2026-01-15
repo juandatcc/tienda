@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../../shared/ui/button/button.component';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, ButtonComponent],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
@@ -23,7 +23,7 @@ export class RegisterComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
     phone: [''],
     address: [''],
-    adminCode: ['']
+    adminCode: [''],
   });
 
   loading = signal(false);
@@ -46,30 +46,28 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.loading.set(true);
       this.error.set('');
-      
-      const { fullName, email, password, phone, address, adminCode } = this.registerForm.value;
-      
-      const role = adminCode ? 'admin' : 'user';
 
-      // Aquí típicamente validarías el código de administrador contra un backend o una constante
-      // Por ahora, asumimos que cualquier código no vacío otorga acceso de administrador
-      
-      this.authService.register({ 
-        fullName: fullName!, 
-        email: email!, 
-        password: password!,
-        phone: phone || undefined,
-        address: address || undefined,
-        role
-      }).subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          this.loading.set(false);
-          this.error.set('Error al registrar usuario. Intente nuevamente.');
-        }
-      });
+      const { fullName, email, password, phone, address, adminCode } = this.registerForm.value;
+
+      // Enviamos el código de administrador al backend (si se proporcionó)
+      this.authService
+        .register({
+          fullName: fullName!,
+          email: email!,
+          password: password!,
+          phone: phone || undefined,
+          address: address || undefined,
+          adminCode: adminCode || undefined,
+        })
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/']);
+          },
+          error: (err) => {
+            this.loading.set(false);
+            this.error.set('Error al registrar usuario. Intente nuevamente.');
+          },
+        });
     } else {
       this.registerForm.markAllAsTouched();
     }

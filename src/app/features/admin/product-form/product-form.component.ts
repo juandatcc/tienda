@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/models/product.model';
+import { CategoryService } from '../../../core/services/category.service';
+import { CategoriaAdminResponse } from '../../../core/models/backend.models';
 
 /**
  * Formulario para crear o editar productos.
@@ -13,7 +15,7 @@ import { Product } from '../../../core/models/product.model';
   selector: 'app-admin-product-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './product-form.component.html'
+  templateUrl: './product-form.component.html',
 })
 export class ProductFormComponent implements OnInit {
   private fb = inject(FormBuilder);
@@ -26,14 +28,17 @@ export class ProductFormComponent implements OnInit {
   isSubmitting = signal(false);
   productId: number | null = null;
 
+  categories = signal<CategoriaAdminResponse[]>([]);
+  imagePreview = signal<string | null>(null);
+
   constructor() {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
-      imageUrl: ['', Validators.required],
-      category: ['', Validators.required],
-      stock: [0, [Validators.required, Validators.min(0)]]
+      imageUrl: [''],
+      categoryId: [null, Validators.required],
+      stock: [0, [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -41,6 +46,10 @@ export class ProductFormComponent implements OnInit {
    * Inicializa el componente. Comprueba si es modo edición (ID en URL).
    */
   ngOnInit() {
+    // Cargar categorías
+    const categoryService = inject(CategoryService);
+    categoryService.getCategories().subscribe((list) => this.categories.set(list));
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEditing.set(true);
@@ -54,9 +63,18 @@ export class ProductFormComponent implements OnInit {
    * @param id ID del producto
    */
   loadProduct(id: number) {
-    this.productService.getProduct(id).subscribe(product => {
+    this.productService.getProduct(id).subscribe((product) => {
       if (product) {
-        this.productForm.patchValue(product);
+        // Mapear campos hacia el formulario
+        this.productForm.patchValue({
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl ?? '',
+          categoryId: product.categoryId ?? null,
+          stock: product.stock,
+        });
+        if (product.imageUrl) this.imagePreview.set(product.imageUrl);
       } else {
         this.router.navigate(['/admin/products']);
       }
@@ -67,31 +85,49 @@ export class ProductFormComponent implements OnInit {
    * Maneja el envío del formulario (Crear o Actualizar).
    */
   onSubmit() {
-    if (this.productForm.invalid) return;
+    if (this.productForm.invalid) {
+      this.productForm.markAllAsTouched();
+      return;
+    }
 
     this.isSubmitting.set(true);
-    const product: Product = this.productForm.value;
+    const form = this.productForm.value;
+
+    const productToSend: Product = {
+      id: this.productId ?? 0,
+      name: form.name,
+      description: form.description,
+      price: form.price,
+      imageUrl: form.imageUrl,
+      category: this.categories().find((c) => c.idCategoria === form.categoryId)?.nombre ?? '',
+      categoryId: form.categoryId,
+      stock: form.stock,
+    };
 
     if (this.isEditing() && this.productId) {
-      this.productService.updateProduct(this.productId, product).subscribe({
+      this.productService.updateProduct(this.productId, productToSend).subscribe({
         next: () => {
           this.router.navigate(['/admin/products']);
         },
         error: (err) => {
           console.error('Error updating product', err);
           this.isSubmitting.set(false);
-        }
+        },
       });
     } else {
-      this.productService.createProduct(product).subscribe({
+      this.productService.createProduct(productToSend).subscribe({
         next: () => {
           this.router.navigate(['/admin/products']);
         },
         error: (err) => {
           console.error('Error creating product', err);
           this.isSubmitting.set(false);
-        }
+        },
       });
     }
+  }
+
+  onImageUrlChange(value: string) {
+    this.imagePreview.set(value || null);
   }
 }

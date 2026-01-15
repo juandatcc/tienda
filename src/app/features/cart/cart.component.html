@@ -10,7 +10,7 @@
             <div *ngFor="let item of cartService.items()" class="cart-item-card">
                 <div class="item-info-wrapper">
                     <div class="item-image-container">
-                        <img [src]="item.product.imageUrl || 'https://via.placeholder.com/100'" class="item-image">
+                        <img [src]="item.product.imageUrl || 'https://via.placeholder.com/100'" alt="">
                     </div>
 
                     <div class="item-details">
