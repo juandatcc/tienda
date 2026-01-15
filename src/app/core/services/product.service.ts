@@ -15,8 +15,9 @@ export class ProductService {
 
   private mapProducto(resp: ProductoResponse | ProductoAdminResponse): Product {
     // El backend puede devolver distintos DTOs; manejamos ambos
-    const categoriaNombre = (resp as any).categoriaNombre ?? (resp as any).categoriaNombre ?? '';
-    const categoriaId = (resp as any).categoriaId ?? (resp as any).categoriaId ?? undefined;
+    const categoriaNombre = (resp as any).categoriaNombre ?? '';
+    const categoriaId = (resp as any).categoriaId ?? undefined;
+
 
     return {
       id: Number((resp as any).id ?? (resp as any).idProducto),

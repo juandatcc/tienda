@@ -1,32 +1,25 @@
 @import 'tailwindcss';
 
-/* Colores Personalizados como Variables CSS */
-:root {
-  --color-primary: #131414;
-  --color-primary-dark: #051937;
-  --color-primary-light: #0f0f0f;
-  --color-secondary: #051937;
-  --color-accent: #080808;
-  --color-accent-light: #0d0d0e;
-  --color-surface: #050505;
-
-  --color-surface-hover: #0d0d0e;
-}
 
 /* Reinicio Global y Estilos Base */
-html {
-  scroll-behavior: smooth;
-  background-color: #fcfcfd;
-}
+
 
 body {
-  height: 100%;
-  background-color: rgb(17, 17, 17);
-  color: var(--color-secondary);
+  height: 90%;
+  background-color: rgb(0, 0, 0);
+  color: rgb(8, 8, 8);
   font-family: Inter, system-ui, sans-serif;
   margin: 0;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+.main-content {
+  max-width: 2200rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  background-color: #0c0c0cf8;
 }
 
 /* Selección Personalizada */
@@ -34,6 +27,7 @@ body {
   background-color: rgba(18, 78, 120, 0.2);
   color: #051937;
 }
+
 
 /* Barra de Desplazamiento Personalizada */
 ::-webkit-scrollbar {
@@ -45,12 +39,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0f0f0f;
+  background: #faf9f9;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #0c0c0c;
 }
 
 h1,
@@ -61,13 +55,13 @@ h5,
 h6 {
   font-weight: bold;
   letter-spacing: -0.025em;
-  color: #0f172a;
+  color: #e5e6eb;
 }
 
 /* Componentes Personalizados */
 @layer components {
   .glass-panel {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(235, 6, 6, 0.7);
 
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -85,7 +79,7 @@ h6 {
 
   .btn-primary {
     background-color: var(--color-primary);
-    color: white;
+    color: rgb(19, 18, 18);
     padding: 0.625rem 1.5rem;
     border-radius: 9999px;
     font-weight: 500;
@@ -108,7 +102,7 @@ h6 {
   }
 
   .btn-outline {
-    border: 1px solid #e2e8f0;
+    border: 1px solid #066aee;
     color: #475569;
     padding: 0.625rem 1.5rem;
     border-radius: 9999px;
@@ -244,7 +238,7 @@ h6 {
     display: inline-block;
     padding: 0.375rem 1rem;
     border-radius: 9999px;
-    background-color: rgba(18, 78, 120, 0.2);
+    background-color: rgb(248, 50, 0);
     color: #a5d8ff;
     font-size: 0.875rem;
     font-weight: 600;
@@ -287,13 +281,7 @@ h6 {
   }
 
   /* Paneles y contenedores */
-  .header-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f1f5f9;
-    position: relative;
-  }
+  
 
   /* Selección de texto */
   .header-container::selection {

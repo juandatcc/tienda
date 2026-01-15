@@ -107,23 +107,19 @@ export class AuthService {
    * @param response Respuesta de autenticación con token, correo y rol
    */
   private saveSession(response: AuthResponse) {
+    const role = response.rol.replace('ROLE_', '');
+
     const user: User = {
       email: response.correo,
-      role: response.rol, // Validar si el backend envía 'ADMIN' o 'ROLE_ADMIN'
+      role: role, // ADMIN | USER
       token: response.token,
     };
 
     this.currentUser.set(user);
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(user));
-    }
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('user', JSON.stringify(user));
 
-    // Cargar carrito del servidor (si existe)
-    try {
-      this.cartService.loadServerCart();
-    } catch (e) {
-      // noop
-    }
+    this.cartService.loadServerCart();
   }
+
 }

@@ -47,7 +47,7 @@ export class MainLayoutComponent {
    * Abre la página de login
    */
   openLogin(): void {
-    this.router.navigate(['/src/app/features/auth/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   /**
@@ -71,23 +71,10 @@ export class MainLayoutComponent {
     this.showMobileMenu.set(false);
   }
 
-  /**
-   * Alterna la barra de búsqueda
-   */
-  toggleSearchBar(): void {
-    this.showSearchBar.update((value) => !value);
-    if (!this.showSearchBar()) {
-      this.searchQuery.set('');
-    }
-  }
-
-  /**
-   * Realiza la búsqueda de productos
-   */
   performSearch(): void {
-    const query = this.searchInput?.nativeElement?.value?.trim() || this.searchQuery().trim();
+    const query = this.searchQuery().trim();
     if (query) {
-      this.router.navigate(['/src/app/features/product-list'], { queryParams: { search: query } });
+      this.router.navigate(['/products'], { queryParams: { search: query } });
       this.searchQuery.set('');
       this.showSearchBar.set(false);
     }
@@ -97,8 +84,7 @@ export class MainLayoutComponent {
    * Navega directamente a productos
    */
   goToProducts(): void {
-    this.router.navigate(['/src/app/features/product-list']);
-    this.closeMobileMenu();
+    this.router.navigate(['/products']);
   }
 
   /**
@@ -106,7 +92,6 @@ export class MainLayoutComponent {
    */
   goToHome(): void {
     this.router.navigate(['/']);
-    this.closeMobileMenu();
   }
 
   /**

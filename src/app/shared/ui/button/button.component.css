@@ -1,19 +1,19 @@
 /* Estilos específicos de ButtonComponent */
 
 .btn-primary {
-    background-color: #124e78;
+    background-color: #f2f4f5;
     color: white;
     font-weight: 600;
     padding: 0.625rem 1.5rem;
     border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgb(255, 255, 255);
     transition: all 200ms;
     border: none;
     cursor: pointer;
 }
 
 .btn-primary:hover {
-    background-color: #051937;
+    background-color: #eaecee;
     box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
 }
 
@@ -23,7 +23,7 @@
 
 .btn-outline {
     border: 1px solid #cbd5e1;
-    color: #475569;
+    color: #f6f8fc;
     font-weight: 500;
     padding: 0.625rem 1.5rem;
     border-radius: 0.75rem;
