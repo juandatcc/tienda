@@ -14,7 +14,7 @@
 
 .btn-primary:hover {
     background-color: #eaecee;
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
+    box-shadow: 0 10px 15px -3px rgb(225, 227, 228);
 }
 
 .btn-primary:active {

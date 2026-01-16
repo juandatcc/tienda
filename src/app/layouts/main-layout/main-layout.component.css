@@ -480,15 +480,15 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s;
-  color: #374151;
+  color: #f6f7f8;
   font-size: 0.875rem;
   font-weight: 500;
   white-space: nowrap;
 }
 
 .user-btn:hover {
-  background-color: rgba(226, 232, 240, 0.8);
-  color: #124e78;
+  background-color: white;
+  color: #070707;
   border-color: #124e78;
 }
 
@@ -499,11 +499,14 @@
 
 .user-email {
   display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 800px) {
   .user-email {
     display: inline;
+    
   }
 }
 
@@ -513,10 +516,10 @@
   top: 100%;
   right: 0;
   margin-top: 0.5rem;
-  background: white;
+  background: rgb(247, 242, 242);
   border: 1px solid #e2e8f0;
   border-radius: 0.75rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 25px -5px rgb(28, 128, 241);
   min-width: 240px;
   z-index: 1000;
   overflow: hidden;
@@ -545,12 +548,12 @@
 
 .user-menu-header span {
   font-weight: 600;
-  color: #0f172a;
+  color: #000000;
   font-size: 0.875rem;
 }
 
 .admin-badge {
-  background-color: #fef3c7;
+  background-color: #0c0c0c;
   color: #b45309;
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
@@ -585,20 +588,21 @@
 }
 
 .menu-item.admin-item {
-  color: #b45309;
+  color: #000000;
+  font-weight: 900;
 }
 
 .menu-item.admin-item:hover {
-  background-color: #fffbeb;
+  background-color: #faf9f6;
 }
 
 .menu-item.logout-item {
-  color: #dc2626;
+  color: #f10a0a;
 }
 
 .menu-item.logout-item:hover {
   background-color: #fee2e2;
-  color: #991b1b;
+  color: #3184f0;
 }
 
 /* Botón del menú móvil */
@@ -617,7 +621,7 @@
 
 .mobile-menu-btn:hover {
   background-color: rgba(226, 232, 240, 0.8);
-  color: #124e78;
+  color: #0c0c0c;
 }
 
 @media (min-width: 768px) {
@@ -632,14 +636,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-top: 1px solid #e2e8f0;
+  background: rgba(14, 13, 13, 0.9);
+  border-top: 1px solid #0d6ff0;
   animation: slideDown 0.3s ease-out;
 }
 
 @media (min-width: 768px) {
   .mobile-menu {
     display: none;
+    
   }
 }
 
@@ -653,7 +658,7 @@
   border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
   text-decoration: none;
-  color: #475569;
+  color: #0c67e6;
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
