@@ -3,23 +3,21 @@
 
 /* Reinicio Global y Estilos Base */
 
-
 body {
   height: 90%;
   background-color: rgb(0, 0, 0);
   color: rgb(8, 8, 8);
   font-family: Inter, system-ui, sans-serif;
   margin: 0;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+  padding: 0;
+  box-sizing: border-box;
+  ;
 }
 
 .main-content {
-  max-width: 2200rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1rem;
-  background-color: #0c0c0cf8;
+  
+  
+  background-color: #0a0a0af8;
 }
 
 /* Selección Personalizada */
@@ -61,10 +59,10 @@ h6 {
 /* Componentes Personalizados */
 @layer components {
   .glass-panel {
-    background-color: rgba(235, 6, 6, 0.7);
+    background-color: rgba(245, 243, 243, 0.7);
 
     border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 rgb(245, 245, 245);
   }
 
   .card-hover {
@@ -74,12 +72,12 @@ h6 {
   .card-hover:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     transform: translateY(-4px);
-    border-color: rgba(18, 78, 120, 0.2);
+    border-color: rgba(20, 26, 31, 0.2);
   }
 
   .btn-primary {
     background-color: var(--color-primary);
-    color: rgb(19, 18, 18);
+    color: rgb(241, 235, 235);
     padding: 0.625rem 1.5rem;
     border-radius: 9999px;
     font-weight: 500;
@@ -243,7 +241,7 @@ h6 {
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(18, 78, 120, 0.3);
+    border: 1px solid rgba(18, 148, 241, 0.3);
   }
 
   /* Enlaces y navegación */
@@ -252,17 +250,16 @@ h6 {
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    gap: 100rem;
+    padding: 1rem 1rem;
     border-radius: 9999px;
-    transition: all 200ms;
+    transition: all 9000ms;
   }
-
-  /* hover de Enlaces y navegación */
   .nav-link:hover {
-    color: var(--color-primary-dark);
-    background-color: rgba(18, 78, 120, 0.05);
+    background-color: rgba(18, 78, 120, 0.1);
   }
+  /* hover de Enlaces y navegación */
+  
 
   /* Subrayado de navegación */
   .nav-underline {
@@ -286,7 +283,7 @@ h6 {
   /* Selección de texto */
   .header-container::selection {
     background-color: var(--color-primary);
-    color: white;
+    color: rgb(255, 255, 255);
   }
 
   /* Decoración de blob */
@@ -296,7 +293,7 @@ h6 {
     left: -10%;
     width: 700px;
     height: 700px;
-    background-color: rgba(18, 78, 120, 0.2);
+    background-color: rgb(248, 249, 250);
     border-radius: 50%;
     filter: blur(120px);
     opacity: 0.4;
