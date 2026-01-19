@@ -18,7 +18,7 @@ import { ButtonComponent } from '../../shared/ui/button/button.component';
           class="bg-white rounded-3xl p-8 border border-slate-100 flex items-center justify-center aspect-square"
         >
           <img
-            [src]="product()?.imageUrl || 'https://via.placeholder.com/600'"
+            [src]="product()?.imageUrl || '../../../assets/banners/hero.jpg'"
             [alt]="product()?.name"
             class="max-h-full max-w-full object-contain hover:scale-105 transition-transform duration-500"
           />
@@ -49,7 +49,7 @@ import { ButtonComponent } from '../../shared/ui/button/button.component';
               {{ product()?.description }}
             </p>
 
-            <div class="pt-6 border-t border-slate-100">
+            <div class="pt-6 border-t border-slate-200">
               <div class="flex gap-4">
                 <app-button (onClick)="addToCart()" size="lg" [fullWidth]="true">
                   Añadir al Carrito

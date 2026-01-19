@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     // Layout principal con rutas hijas
     path: '',
-    loadComponent: () => import('./layouts/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
+    loadComponent: () => import('./layouts/main-layout/main-layout.component').then(m => m.LayoutComponent),
     children: [
       // Rutas hijas del layout principal
       {

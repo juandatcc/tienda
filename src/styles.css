@@ -1,98 +1,111 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
+/* =========================
+   Variables Globales
+========================= */
+:root {
+  --color-primary: #124e78;
+  --color-primary-dark: #051937;
+  --color-primary-light: #5b8fb9;
+  --color-accent: #bbe1fa;
 
-/* Reinicio Global y Estilos Base */
+  --color-bg: #0f0f0f;
+  --color-text: #e7e9ee;
+  --color-muted: #94a3b8;
+}
+
+/* =========================
+   Reset & Base
+========================= */
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  height: 90%;
-  background-color: rgb(0, 0, 0);
-  color: rgb(8, 8, 8);
-  font-family: Inter, system-ui, sans-serif;
+  min-height: 100%;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  ;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: Inter, system-ui, sans-serif;
+  overflow-x: scroll;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.main-content {
-  
-  
-  background-color: #0a0a0af8;
-}
-
-/* Selección Personalizada */
 ::selection {
-  background-color: rgba(18, 78, 120, 0.2);
-  color: #051937;
+  background-color: rgba(18, 78, 120, 0.3);
+  color: white;
 }
 
-
-/* Barra de Desplazamiento Personalizada */
+/* =========================
+   Scrollbar
+========================= */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 ::-webkit-scrollbar-thumb {
-  background: #faf9f9;
+  background-color: #475569;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0c0c0c;
+  background-color: #64748b;
 }
 
+/* =========================
+   Tipografía
+========================= */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: bold;
+  font-weight: 700;
   letter-spacing: -0.025em;
-  color: #e5e6eb;
+  color: var(--color-text);
 }
 
-/* Componentes Personalizados */
+/* =========================
+   Tailwind Components
+========================= */
 @layer components {
+
+  /* Panels */
   .glass-panel {
-    background-color: rgba(245, 243, 243, 0.7);
+  background-color: rgba(255, 255, 255, 0.08);
 
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 1px 2px 0 rgb(245, 245, 245);
-  }
+  /* Safari iOS support */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+}
+
+
+  /* Cards */
   .card-hover {
-    transition: all 300ms;
+    transition: transform 300ms, box-shadow 300ms;
   }
 
   .card-hover:hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     transform: translateY(-4px);
-    border-color: rgba(20, 26, 31, 0.2);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
   }
 
+  /* =========================
+     Buttons (UNIFICADOS)
+  ========================= */
   .btn-primary {
+    @apply flex items-center justify-center gap-2 px-6 py-2 rounded-full font-semibold text-white transition;
     background-color: var(--color-primary);
-    color: rgb(241, 235, 235);
-    padding: 0.625rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 500;
-    transition: all 300ms;
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.35);
   }
 
   .btn-primary:hover {
     background-color: var(--color-primary-dark);
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
   }
 
   .btn-primary:active {
@@ -100,245 +113,90 @@ h6 {
   }
 
   .btn-outline {
-    border: 1px solid #066aee;
-    color: #475569;
-    padding: 0.625rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 500;
-    transition: all 300ms;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
+    @apply flex items-center justify-center gap-2 px-6 py-2 rounded-full font-medium transition;
+    border: 1px solid #334155;
+    color: var(--color-text);
   }
 
   .btn-outline:hover {
-    background-color: #f8fafc;
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
-  .text-gradient {
-    background: linear-gradient(to right, var(--color-primary), #a855f7, var(--color-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .btn-icon {
+    @apply flex items-center justify-center rounded-full transition;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
-  /* Botones y controles */
-  .btn-primary-solid {
-    background-color: var(--color-primary);
-    color: white;
-    font-weight: 600;
-    padding: 0.625rem 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: all 200ms;
-    cursor: pointer;
+  .btn-icon:hover {
+    background-color: rgba(18, 78, 120, 0.2);
+    color: var(--color-primary-light);
   }
 
-  .btn-primary-solid:hover {
-    background-color: var(--color-primary-dark);
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
-  }
+  /* =========================
+     Text & Badges
+  ========================= */
+   
 
-  .btn-primary-solid:active {
-    transform: scale(0.95);
-  }
-
-  .btn-cart {
-    padding: 0.75rem 2rem;
-    background-color: var(--color-primary);
-    color: white;
-    border-radius: 9999px;
-    transition: all 200ms;
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
-    font-weight: bold;
-    margin-top: 1.5rem;
-    cursor: pointer;
-  }
-
-  .btn-cart:hover {
-    background-color: var(--color-primary-dark);
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
-  }
-
-  .btn-checkout {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--color-primary);
-    color: white;
-    border-radius: 1rem;
-    font-weight: bold;
-    transition: all 200ms;
-    box-shadow: 0 20px 25px -5px rgba(18, 78, 120, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-  }
-
-  .btn-checkout:hover {
-    background-color: var(--color-primary-dark);
-    transform: scale(1.02);
-  }
-
-  .btn-checkout:active {
-    transform: scale(0.98);
-  }
-
-  /* Botones de eliminación */
-  .btn-remove {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background-color: white;
-    color: #64748b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    transition: all 200ms;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-  }
-
-  .btn-remove:hover {
-    background-color: var(--color-primary);
-    color: white;
-  }
-
-  .btn-wishlist {
-    background-color: white;
-    color: var(--color-primary);
-    padding: 0.75rem;
-    border-radius: 9999px;
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
-    transition: all 300ms;
-    cursor: pointer;
-  }
-
-  /* */
-  hover de botones y controles .btn-wishlist:hover {
-    box-shadow: 0 10px 15px -3px rgba(18, 78, 120, 0.3);
-    transform: scale(1.1);
-    background-color: var(--color-primary);
-    color: white;
-  }
-
-  /* Iconos y animaciones */
-  .btn-wishlist:active {
-    transform: scale(0.95);
-  }
-
-  /* Tags y badges */
   .tag-primary {
     display: inline-block;
     padding: 0.375rem 1rem;
     border-radius: 9999px;
-    background-color: rgb(248, 50, 0);
-    color: #a5d8ff;
     font-size: 0.875rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(18, 148, 241, 0.3);
+    color: var(--color-accent);
+    background-color: rgba(18, 78, 120, 0.25);
+    border: 1px solid rgba(18, 78, 120, 0.4);
   }
 
-  /* Enlaces y navegación */
+  /* =========================
+     Navigation
+  ========================= */
   .nav-link {
-    color: var(--color-primary);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 100rem;
-    padding: 1rem 1rem;
-    border-radius: 9999px;
-    transition: all 9000ms;
+    @apply relative px-4 py-2 font-medium transition;
+    color: var(--color-text);
   }
-  .nav-link:hover {
-    background-color: rgba(18, 78, 120, 0.1);
-  }
-  /* hover de Enlaces y navegación */
-  
 
-  /* Subrayado de navegación */
+  .nav-link:hover {
+    color: var(--color-primary-light);
+  }
+
   .nav-underline {
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     width: 0;
-    height: 0.125rem;
+    height: 2px;
     background-color: var(--color-primary);
     transition: all 300ms;
+    transform: translateX(-50%);
   }
 
-  /* Enlaces y navegación */
   .nav-link:hover .nav-underline {
     width: 100%;
   }
 
-  /* Paneles y contenedores */
-  
-
-  /* Selección de texto */
-  .header-container::selection {
-    background-color: var(--color-primary);
-    color: rgb(255, 255, 255);
-  }
-
-  /* Decoración de blob */
+  /* =========================
+     Layout Decorations
+  ========================= */
   .blob-decoration {
     position: absolute;
-    top: -20%;
-    left: -10%;
     width: 700px;
     height: 700px;
-    background-color: rgb(248, 249, 250);
     border-radius: 50%;
+    background-color: rgba(18, 78, 120, 0.25);
     filter: blur(120px);
-    opacity: 0.4;
     animation: float 6s ease-in-out infinite;
   }
 
-  /* Iconos y animaciones */
   @keyframes float {
     0%,
     100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-12px);
     }
-  }
-
-  /* Iconos y acciones pequeñas */
-  .icon-button {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background-color: #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 200ms;
-    cursor: pointer;
-  }
-
-  .icon-button:hover {
-    background-color: rgba(18, 78, 120, 0.1);
-    color: var(--color-primary);
-  }
-
-  .overlay-scale {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(18, 78, 120, 0.05);
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 200ms;
-  }
-
-  .group:hover .overlay-scale {
-    transform: scale(1);
   }
 }

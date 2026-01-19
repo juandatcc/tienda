@@ -13,7 +13,7 @@
   justify-content: space-between;
   gap: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  border-bottom: 1px solid rgb(244, 245, 247);
 }
 
 @media (min-width: 768px) {
@@ -26,13 +26,13 @@
 .pl-title {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #f7f7f7;
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
 }
 
 .pl-subtitle {
-  color: #64748b;
+  color: #c8c9ca;
   font-size: 1.125rem;
   font-weight: 300;
   max-width: 31rem;
@@ -68,18 +68,18 @@
   background-color: white;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #475569;
-  cursor: pointer;
+  color: #0d0d0e;
+  cursor:auto;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .custom-select:hover {
-  border-color: rgba(18, 78, 120, 0.3);
+  border-color: rgba(26, 136, 214, 0.3);
 }
 
 .custom-select:focus {
-  outline: none;
+  outline:inverted;
   box-shadow: 0 0 0 2px rgba(18, 78, 120, 0.2);
 }
 
