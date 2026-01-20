@@ -26,6 +26,21 @@ export const routes: Routes = [
       {
         path: 'cart',
         loadComponent: () => import('./features/cart/cart.component').then(m => m.CartComponent)
+      },
+      // Rutas para pagos PSE
+      {
+        path: 'pago/iniciar',
+        loadComponent: () => import('./features/payments/pse-start/pse-start.component').then(m => m.PseStartComponent)
+      },
+      {
+        path: 'pago/resultado',
+        loadComponent: () => import('./features/payments/pse-return/pse-return.component').then(m => m.PseReturnComponent)
+      },
+      // Ruta para el perfil de usuario
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent),
+        canActivate: [authGuard]
       }
     ]
   },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 /**
@@ -11,4 +11,17 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  @ViewChild('carouselContainer') carouselContainer!: ElementRef;
+
+  scrollCarousel(direction: 'left' | 'right') {
+    const container = this.carouselContainer.nativeElement;
+    const scrollAmount = 400; // Desplazamiento en píxeles
+
+    if (direction === 'left') {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  }
+}

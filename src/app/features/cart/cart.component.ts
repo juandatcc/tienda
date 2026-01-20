@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
+import { PriceFormatPipe } from '../../shared/pipes/price-format.pipe';
 
 /**
  * Componente de página completa del carrito.
@@ -11,12 +12,26 @@ import { ButtonComponent } from '../../shared/ui/button/button.component';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, ButtonComponent],
+  imports: [CommonModule, RouterLink, ButtonComponent, PriceFormatPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
   cartService = inject(CartService);
+
+  /**
+   * Incrementa la cantidad de un producto en el carrito.
+   */
+  incrementQuantity(productId: number) {
+    this.cartService.incrementQuantity(productId);
+  }
+
+  /**
+   * Decrementa la cantidad de un producto en el carrito.
+   */
+  decrementQuantity(productId: number) {
+    this.cartService.decrementQuantity(productId);
+  }
 
   /**
    * Procede al checkout (por ahora muestra un mensaje)

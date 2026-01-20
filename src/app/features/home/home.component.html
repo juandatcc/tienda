@@ -1,16 +1,25 @@
 <!-- Hero Section -->
-<section class="relative rounded-3xl overflow-hidden py-20 px-4 md:px-20 flex flex-col justify-center items-center min-h-[70vh] bg-linear-to-br from-neutral-900 via-black to-blue-950">
-    <span class="inline-block px-4 py-2 rounded-full bg-blue-950/80 text-white text-sm font-semibold mb-6 border border-blue-400">Nueva Colección 2026</span>
+<section
+    class="relative rounded-3xl overflow-hidden py-20 px-4 md:px-20 flex flex-col justify-center items-center min-h-[70vh] bg-linear-to-br from-neutral-900 via-black to-blue-950">
+    <span
+        class="inline-block px-4 py-2 rounded-full bg-blue-950/80 text-white text-sm font-semibold mb-6 border border-blue-400">Nueva
+        Colección 2026</span>
     <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight text-center">
         Eleva tu <br>
-        <span class="bg-linear-to-r from-blue-400 via-blue-200 to-green-400 bg-clip-text text-transparent">Estilo de Vida</span>
+        <span class="bg-linear-to-r from-blue-400 via-blue-200 to-green-400 bg-clip-text text-transparent">Estilo de
+            Vida</span>
     </h1>
     <p class="text-lg md:text-xl text-blue-300 mb-8 max-w-xl text-center font-medium">
-        Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en un solo lugar.
+        Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en un
+        solo lugar.
     </p>
     <div class="flex flex-wrap gap-4 justify-center">
-        <a routerLink="/products" class="px-8 py-3 rounded-lg bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-800 transition">Ver Colección</a>
-        <a href="#featured" class="px-8 py-3 rounded-lg border border-blue-700 text-blue-300 font-bold text-lg hover:bg-blue-900/40 transition">Lo más nuevo</a>
+        <a routerLink="/products"
+            class="px-8 py-3 rounded-lg bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-800 transition">Ver
+            Colección</a>
+        <a href="#featured"
+            class="px-8 py-3 rounded-lg border border-blue-700 text-blue-300 font-bold text-lg hover:bg-blue-900/40 transition">Lo
+            más nuevo</a>
     </div>
 </section>
 
@@ -18,40 +27,126 @@
 <section id="featured" class="mt-16 px-4 md:px-20">
     <div class="flex flex-col md:flex-row items-end justify-between mb-10 gap-4">
         <div>
-            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Categorías Destacadas</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Categorías</h2>
             <p class="text-blue-300">Explora por tipo de producto</p>
         </div>
-        <a routerLink="/products" class="flex items-center gap-2 px-4 py-2 rounded-full text-blue-300 font-semibold hover:bg-blue-900/40 transition">Ver todas <span class="transition-transform group-hover:translate-x-1">→</span></a>
+        <a routerLink="/products"
+            class="flex items-center gap-2 px-4 py-2 rounded-full text-blue-300 font-semibold hover:bg-blue-900/40 transition">Ver
+            todas <span class="transition-transform group-hover:translate-x-1">→</span></a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Category Card 1 -->
-        <div class="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=800')"></div>
-            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition"></div>
-            <div class="absolute bottom-0 left-0 p-6">
-                <span class="text-indigo-400 text-xs font-bold uppercase mb-2 block">Premium</span>
-                <h3 class="text-2xl text-white font-bold mb-2">Portátiles</h3>
-                <p class="text-blue-200 text-sm">Potencia de última generación para profesionales.</p>
-            </div>
-        </div>
-        <!-- Category Card 2 -->
-        <div class="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800')"></div>
-            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition"></div>
-            <div class="absolute bottom-0 left-0 p-6">
-                <span class="text-blue-300 text-xs font-bold uppercase mb-2 block">Inmersivo</span>
-                <h3 class="text-2xl text-white font-bold mb-2">Audio</h3>
-                <p class="text-blue-200 text-sm">Experimenta el sonido como nunca antes.</p>
-            </div>
-        </div>
-        <!-- Category Card 3 -->
-        <div class="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800')"></div>
-            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition"></div>
-            <div class="absolute bottom-0 left-0 p-6">
-                <span class="text-emerald-400 text-xs font-bold uppercase mb-2 block">Esenciales</span>
-                <h3 class="text-2xl text-white font-bold mb-2">Accesorios</h3>
-                <p class="text-blue-200 text-sm">El complemento perfecto para tu setup.</p>
+    <!-- Carrusel de Categorías -->
+    <div class="relative group/carousel">
+        <!-- Botón Anterior -->
+        <button (click)="scrollCarousel('left')"
+            class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-blue-600/90 hover:bg-blue-700 text-white rounded-full shadow-xl transition-all opacity-0 group-hover/carousel:opacity-100"
+            aria-label="Anterior categoría" title="Anterior categoría">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <!-- Botón Siguiente -->
+        <button (click)="scrollCarousel('right')"
+            class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-blue-600/90 hover:bg-blue-700 text-white rounded-full shadow-xl transition-all opacity-0 group-hover/carousel:opacity-100"
+            aria-label="Siguiente categoría" title="Siguiente categoría">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+
+        <div #carouselContainer class="overflow-x-auto scrollbar-hide pb-4">
+            <div class="flex gap-6 min-w-max px-2">
+                <!-- Category Card 1 - EQUIPOS DE OFICINA -->
+                <div [routerLink]="['/products']" [queryParams]="{category: 5}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink-0">
+                    <div
+                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-office">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-purple-400 text-xs font-bold uppercase mb-2 block">Profesional</span>
+                        <h3 class="text-2xl text-white font-bold mb-2">Equipos de Oficina</h3>
+                        <p class="text-blue-200 text-sm">Impresoras, escáneres y dispositivos empresariales.</p>
+                    </div>
+                </div>
+
+                <!-- Category Card 2 - REDES Y CONECTIVIDAD -->
+                <div [routerLink]="['/products']" [queryParams]="{category: 7}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink-0">
+                    <div
+                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-network">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase mb-2 block">Conectividad</span>
+                        <h3 class="text-2xl text-white font-bold mb-2">Redes y Conectividad</h3>
+                        <p class="text-blue-200 text-sm">Routers, switches y soluciones de red.</p>
+                    </div>
+                </div>
+
+                <!-- Category Card 3 - LAPTOPS -->
+                <div [routerLink]="['/products']" [queryParams]="{category: 1}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
+                    <div
+                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-laptop">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-indigo-400 text-xs font-bold uppercase mb-2 block">Premium</span>
+                        <h3 class="text-2xl text-white font-bold mb-2">Laptops</h3>
+                        <p class="text-blue-200 text-sm">Computadores portátiles para uso personal y profesional.</p>
+                    </div>
+                </div>
+
+                <!-- Category Card 4 - CELULARES -->
+                <div [routerLink]="['/products']" [queryParams]="{category: 2}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
+                    <div
+                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-mobile">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-blue-300 text-xs font-bold uppercase mb-2 block">Destacado</span>
+                        <h3 class="text-2xl text-white font-bold mb-2">Celulares</h3>
+                        <p class="text-blue-200 text-sm">Teléfonos inteligentes de última generación.</p>
+                    </div>
+                </div>
+
+                <!-- Category Card 5 - ACCESORIOS TECNOLOGICOS -->
+                <div [routerLink]="['/products']" [queryParams]="{category: 3}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
+                    <div
+                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-accessory">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-emerald-400 text-xs font-bold uppercase mb-2 block">Esenciales</span>
+                        <h3 class="text-2xl text-white font-bold mb-2">Accesorios Tecnológicos</h3>
+                        <p class="text-blue-200 text-sm">Cargadores, cables, audífonos y complementos.</p>
+                    </div>
+                </div>
+
+                <!-- Category Card 6 - ELECTRODOMESTICOS HOGAR -->
+                <div [routerLink]="['/products']" [queryParams]="{category: 4}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
+                    <div
+                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-home">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-yellow-400 text-xs font-bold uppercase mb-2 block">Hogar</span>
+                        <h3 class="text-2xl text-white font-bold mb-2">Electrodomésticos Hogar</h3>
+                        <p class="text-blue-200 text-sm">Refrigeradores, lavadoras y equipos esenciales.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -45,6 +45,26 @@ body {
   background: #0c0c0c;
 }
 
+/* Ocultar scrollbar para carrusel */
+.scrollbar-hide {
+  /* Hide scrollbar for IE, Edge */
+  -ms-overflow-style: none;
+  /* Hide scrollbar for Firefox */
+}
+/* Hide scrollbar for Chrome, Safari, Opera, Samsung Internet */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll suave para carrusel */
+.overflow-x-auto {
+  scroll-behavior: smooth;
+}
+
 h1,
 h2,
 h3,

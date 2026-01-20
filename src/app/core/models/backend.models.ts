@@ -7,6 +7,7 @@ export interface ProductoResponse {
   stock: number;
   categoriaId?: number;
   categoriaNombre?: string;
+  imagenUrl?: string; // Ruta de la imagen en assets
 }
 
 export interface ProductoAdminResponse {
@@ -18,6 +19,7 @@ export interface ProductoAdminResponse {
   stock: number;
   categoriaId?: number;
   categoriaNombre?: string;
+  imagenUrl?: string; // Ruta de la imagen en assets
 }
 
 export interface ProductoRequest {
@@ -27,6 +29,7 @@ export interface ProductoRequest {
   precio: number;
   stock: number;
   categoriaId: number;
+  imagenUrl?: string; // Ruta de la imagen en assets
 }
 
 export interface CategoriaAdminResponse {

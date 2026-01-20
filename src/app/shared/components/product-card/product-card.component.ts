@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Product } from '../../../core/models/product.model';
 import { CartService } from '../../../core/services/cart.service';
 import { ButtonComponent } from '../../ui/button/button.component';
+import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 
 /**
  * Componente de tarjeta de producto.
@@ -13,15 +14,16 @@ import { ButtonComponent } from '../../ui/button/button.component';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, PriceFormatPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
   /** El producto a mostrar */
   @Input({ required: true }) product!: Product;
-  
+
   private cartService = inject(CartService);
+  imageError = false;
 
   /**
    * Agrega el producto al carrito.
@@ -33,5 +35,13 @@ export class ProductCardComponent {
     event.preventDefault();
     this.cartService.addToCart(this.product);
     this.cartService.openCart(); // Abre el carrito para mostrar feedback visual
+  }
+
+  /**
+   * Maneja el error al cargar la imagen
+   * @param event Evento de error
+   */
+  onImageError(event: Event) {
+    this.imageError = true;
   }
 }

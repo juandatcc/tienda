@@ -3,12 +3,12 @@
  */
 export interface User {
   id?: number;
-  email: string;
-  fullName?: string;
-  phone?: string;
-  address?: string;
-  /** Rol del usuario: 'admin' o 'user' */
-  role: string;
+  correo: string;
+  nombre: string;
+  telefono?: string;
+  direccion?: string;
+  /** Rol del usuario: 'ADMIN' o 'USER' */
+  rol: string;
   token?: string;
 }
 

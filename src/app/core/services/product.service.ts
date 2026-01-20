@@ -24,7 +24,7 @@ export class ProductService {
       name: (resp as any).nombre,
       description: (resp as any).descripcion ?? '',
       price: Number((resp as any).precio),
-      imageUrl: '',
+      imageUrl: (resp as any).imagenUrl ?? '',
       category: categoriaNombre,
       categoryId: categoriaId,
       stock: (resp as any).stock,

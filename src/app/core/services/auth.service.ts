@@ -110,8 +110,9 @@ export class AuthService {
     const role = response.rol.replace('ROLE_', '');
 
     const user: User = {
-      email: response.correo,
-      role: role, // ADMIN | USER
+      correo: response.correo,
+      nombre: response.correo.split('@')[0], // Temporal hasta que el backend devuelva el nombre
+      rol: role, // ADMIN | USER
       token: response.token,
     };
 

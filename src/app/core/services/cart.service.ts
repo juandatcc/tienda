@@ -85,7 +85,7 @@ export class CartService {
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     if (token) {
       this.serverCart.removeFromCart(productId).subscribe({
-        next: () => {},
+        next: () => { },
         error: (err) => console.error('Error removing from server cart', err),
         complete: () =>
           this.serverCart.getCart().subscribe({ next: (resp) => this.mapCarritoResponse(resp) }),
@@ -105,20 +105,41 @@ export class CartService {
    */
   updateQuantity(productId: number, quantity: number, removeAll: boolean = false) {
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
+
     if (token) {
+      // Usuario autenticado - actualizar en el servidor
       if (removeAll) {
         this.removeFromCart(productId);
         return;
       }
+
+      // Actualización optimista: actualizar el estado local primero
+      this.items.update((items) => {
+        if (quantity <= 0) {
+          return items.filter((i) => i.product.id !== productId);
+        }
+        return items.map((i) => (i.product.id === productId ? { ...i, quantity } : i));
+      });
+
+      // Luego sincronizar con el servidor
       this.serverCart
         .updateCart({ items: [{ productoId: productId, cantidad: quantity }] })
         .subscribe({
-          next: (resp) => this.mapCarritoResponse(resp),
-          error: (err) => console.error('Error updating server cart', err),
+          next: () => {
+            // Actualización exitosa en el servidor
+            // No necesitamos actualizar el estado local nuevamente
+            // porque ya lo hicimos de forma optimista
+          },
+          error: (err) => {
+            console.error('Error updating server cart', err);
+            // En caso de error, recargar el carrito del servidor
+            this.loadServerCart();
+          },
         });
       return;
     }
 
+    // Usuario no autenticado - actualizar solo localStorage
     this.items.update((items) => {
       if (removeAll || quantity <= 0) {
         return items.filter((i) => i.product.id !== productId);
@@ -132,6 +153,29 @@ export class CartService {
    */
   clearCart() {
     this.items.set([]);
+  }
+
+  /**
+   * Incrementa la cantidad de un producto en 1.
+   * @param productId ID del producto
+   */
+  incrementQuantity(productId: number) {
+    const item = this.items().find((i) => i.product.id === productId);
+    if (item) {
+      this.updateQuantity(productId, item.quantity + 1);
+    }
+  }
+
+  /**
+   * Decrementa la cantidad de un producto en 1.
+   * Si la cantidad llega a 0, elimina el producto.
+   * @param productId ID del producto
+   */
+  decrementQuantity(productId: number) {
+    const item = this.items().find((i) => i.product.id === productId);
+    if (item && item.quantity > 1) {
+      this.updateQuantity(productId, item.quantity - 1);
+    }
   }
 
   /**
