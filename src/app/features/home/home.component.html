@@ -1,82 +1,57 @@
-<!-- Sección Heroica -->
-<section class="hero-section">
-    <div class="hero-bg-container">
-        <div class="hero-bg-image"></div>
-        <div class="hero-overlay"></div>
-    </div>
-
-    <div class="hero-content">
-        <span class="new-badge">
-            Nueva Colección 2026
-        </span>
-        <h1 class="hero-title">
-            Eleva tu <br>
-            <span class="gradient-text">Estilo de Vida</span>
-        </h1>
-        <p class="hero-description">
-            Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en
-            un solo lugar.
-        </p>
-        <div class="hero-actions">
-            <a routerLink="/products" class="btn-hero-primary">
-                Ver Colección
-            </a>
-            <a href="#featured" class="btn-hero-outline">
-                Lo más nuevo
-            </a>
-        </div>
+<!-- Hero Section -->
+<section class="relative rounded-3xl overflow-hidden py-20 px-4 md:px-20 flex flex-col justify-center items-center min-h-[70vh] bg-linear-to-br from-neutral-900 via-black to-blue-950">
+    <span class="inline-block px-4 py-2 rounded-full bg-blue-950/80 text-white text-sm font-semibold mb-6 border border-blue-400">Nueva Colección 2026</span>
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight text-center">
+        Eleva tu <br>
+        <span class="bg-linear-to-r from-blue-400 via-blue-200 to-green-400 bg-clip-text text-transparent">Estilo de Vida</span>
+    </h1>
+    <p class="text-lg md:text-xl text-blue-300 mb-8 max-w-xl text-center font-medium">
+        Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en un solo lugar.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+        <a routerLink="/products" class="px-8 py-3 rounded-lg bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-800 transition">Ver Colección</a>
+        <a href="#featured" class="px-8 py-3 rounded-lg border border-blue-700 text-blue-300 font-bold text-lg hover:bg-blue-900/40 transition">Lo más nuevo</a>
     </div>
 </section>
 
-<!-- Cuadrícula de Categorías Destacadas -->
-<section id="featured" class="categoria-section">
-    <div class="featured-header">
+<!-- Categorías Destacadas -->
+<section id="featured" class="mt-16 px-4 md:px-20">
+    <div class="flex flex-col md:flex-row items-end justify-between mb-10 gap-4">
         <div>
-            <h2 class="section-title">Categorías Destacadas</h2>
-            <p class="section-subtitle">Explora por tipo de producto</p>
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Categorías Destacadas</h2>
+            <p class="text-blue-300">Explora por tipo de producto</p>
         </div>
-        <a routerLink="/products" class="view-all-link">
-            Ver todas <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </a>
+        <a routerLink="/products" class="flex items-center gap-2 px-4 py-2 rounded-full text-blue-300 font-semibold hover:bg-blue-900/40 transition">Ver todas <span class="transition-transform group-hover:translate-x-1">→</span></a>
     </div>
-
-    <div class="grid-categories">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Category Card 1 -->
-        <div class="category-card">
-            <div class="category-bg"
-                style="background-image: url('https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=800')">
-            </div>
-            <div class="category-overlay"></div>
-            <div class="category-content">
-                <span class="category-tag text-indigo-400">Premium</span>
-                <h3 class="category-title">Portátiles</h3>
-                <p class="category-desc">Potencia de última generación para profesionales.</p>
+        <div class="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=800')"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition"></div>
+            <div class="absolute bottom-0 left-0 p-6">
+                <span class="text-indigo-400 text-xs font-bold uppercase mb-2 block">Premium</span>
+                <h3 class="text-2xl text-white font-bold mb-2">Portátiles</h3>
+                <p class="text-blue-200 text-sm">Potencia de última generación para profesionales.</p>
             </div>
         </div>
-
         <!-- Category Card 2 -->
-        <div class="category-card">
-            <div class="category-bg"
-                style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800')">
-            </div>
-            <div class="category-overlay"></div>
-            <div class="category-content">
-                <span class="category-tag text-accent-light">Inmersivo</span>
-                <h3 class="category-title">Audio</h3>
-                <p class="category-desc">Experimenta el sonido como nunca antes.</p>
+        <div class="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800')"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition"></div>
+            <div class="absolute bottom-0 left-0 p-6">
+                <span class="text-blue-300 text-xs font-bold uppercase mb-2 block">Inmersivo</span>
+                <h3 class="text-2xl text-white font-bold mb-2">Audio</h3>
+                <p class="text-blue-200 text-sm">Experimenta el sonido como nunca antes.</p>
             </div>
         </div>
-
         <!-- Category Card 3 -->
-        <div class="category-card">
-            <div class="category-bg"
-                style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800')">
-            </div>
-            <div class="category-overlay"></div>
-            <div class="category-content">
-                <span class="category-tag text-emerald-400">Esenciales</span>
-                <h3 class="category-title">Accesorios</h3>
-                <p class="category-desc">El complemento perfecto para tu setup.</p>
+        <div class="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800')"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition"></div>
+            <div class="absolute bottom-0 left-0 p-6">
+                <span class="text-emerald-400 text-xs font-bold uppercase mb-2 block">Esenciales</span>
+                <h3 class="text-2xl text-white font-bold mb-2">Accesorios</h3>
+                <p class="text-blue-200 text-sm">El complemento perfecto para tu setup.</p>
             </div>
         </div>
     </div>

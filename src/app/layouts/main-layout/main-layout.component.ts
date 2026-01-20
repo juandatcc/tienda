@@ -10,7 +10,6 @@ import { AuthService } from '../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, CartSidebarComponent],
   templateUrl: '../main-layout/main-layout.component.html',
-  styleUrl: '../main-layout/main-layout.component.css',
 })
 
 // Componente que define el layout principal de la aplicación

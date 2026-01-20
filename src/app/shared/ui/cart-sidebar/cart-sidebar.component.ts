@@ -12,7 +12,6 @@ import { CartService } from '../../../core/services/cart.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './cart-sidebar.component.html',
-  styleUrl: './cart-sidebar.component.css'
 })
 export class CartSidebarComponent {
   cartService = inject(CartService);

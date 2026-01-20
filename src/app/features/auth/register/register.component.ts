@@ -10,7 +10,6 @@ import { ButtonComponent } from '../../../shared/ui/button/button.component';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, ButtonComponent],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
