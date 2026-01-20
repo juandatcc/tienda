@@ -101,10 +101,15 @@ export class CartService {
    * Si la cantidad es 0 o menor, elimina el producto.
    * @param productId ID del producto
    * @param quantity Nueva cantidad
+   * @param removeAll Si es true, elimina el producto por completo
    */
-  updateQuantity(productId: number, quantity: number) {
+  updateQuantity(productId: number, quantity: number, removeAll: boolean = false) {
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     if (token) {
+      if (removeAll) {
+        this.removeFromCart(productId);
+        return;
+      }
       this.serverCart
         .updateCart({ items: [{ productoId: productId, cantidad: quantity }] })
         .subscribe({
@@ -115,7 +120,7 @@ export class CartService {
     }
 
     this.items.update((items) => {
-      if (quantity <= 0) {
+      if (removeAll || quantity <= 0) {
         return items.filter((i) => i.product.id !== productId);
       }
       return items.map((i) => (i.product.id === productId ? { ...i, quantity } : i));
