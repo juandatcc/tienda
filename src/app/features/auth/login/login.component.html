@@ -1,7 +1,8 @@
 <div class="flex flex-col items-center justify-center min-h-[70vh] px-4">
     <!-- Logo centrado solo en móvil -->
     <a routerLink="/" class="md:hidden flex justify-center w-full mb-6 select-none" title="Ir al inicio">
-        <span class="text-2xl font-bold bg-gradient-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">Linksys Store</span>
+        <span
+            class="text-2xl font-bold bg-gradient-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">TechHub</span>
     </a>
     <div class="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl p-8">
         <h1 class="text-2xl font-bold text-white mb-2">Bienvenido de nuevo</h1>
@@ -9,7 +10,9 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
             <div class="flex flex-col gap-2">
                 <label for="email" class="text-sm font-medium text-blue-300">Email</label>
-                <input type="email" id="email" formControlName="email" class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition" [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
+                <input type="email" id="email" formControlName="email"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
                 <p *ngIf="isInvalid('email')" class="text-red-400 text-xs mt-1">Email inválido</p>
             </div>
             <div class="flex flex-col gap-2">
@@ -17,7 +20,9 @@
                     <label for="password" class="text-sm font-medium text-blue-300">Contraseña</label>
                     <a href="#" class="text-xs text-blue-400 hover:underline">¿Olvidaste tu contraseña?</a>
                 </div>
-                <input type="password" id="password" formControlName="password" class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition" [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
+                <input type="password" id="password" formControlName="password"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
             </div>
             <div *ngIf="error()" class="px-4 py-2 bg-red-900/80 text-red-300 rounded-lg text-sm">{{ error() }}</div>
             <app-button type="submit" [fullWidth]="true" [loading]="loading()">Iniciar Sesión</app-button>

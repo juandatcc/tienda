@@ -52,6 +52,7 @@ export interface CarritoItemResponse {
   descripcionProducto?: string;
   cantidad: number;
   precio: number;
+  imagenUrl?: string;
 }
 
 export interface CarritoResponse {

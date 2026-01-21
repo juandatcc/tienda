@@ -16,7 +16,7 @@ import { PriceFormatPipe } from '../../pipes/price-format.pipe';
   standalone: true,
   imports: [CommonModule, RouterLink, PriceFormatPipe],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+
 })
 export class ProductCardComponent {
   /** El producto a mostrar */

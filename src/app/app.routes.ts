@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,12 @@ export const routes: Routes = [
         path: 'profile',
         loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent),
         canActivate: [authGuard]
+      },
+      // Rutas para el área de administración, protegidas por authGuard
+      {
+        path: 'admin',
+        loadChildren: () => import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES),
+        canActivate: [authGuard]
       }
     ]
   },
@@ -50,6 +57,7 @@ export const routes: Routes = [
     // Ruta para autenticación
     path: 'auth',
     loadComponent: () => import('./layouts/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
+    canActivate: [guestGuard], // Previene acceso si ya está autenticado
     children: [
       // Rutas hijas del layout de autenticación
       {
@@ -64,12 +72,6 @@ export const routes: Routes = [
       // Redirección por defecto a login
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
-  },
-  // Rutas para el área de administración, protegidas por authGuard
-  {
-    path: 'admin',
-    loadChildren: () => import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES),
-    canActivate: [authGuard]
   },
   // Redirección para rutas no encontradas
   { path: '**', redirectTo: '' }

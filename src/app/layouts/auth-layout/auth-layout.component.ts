@@ -15,7 +15,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
           class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center"
         ></div>
         <div class="relative z-10">
-          <a routerLink="/" class="text-2xl font-bold tracking-tighter">Linksys Store</a>
+          <a routerLink="/" class="text-2xl font-bold tracking-tighter">TechHub</a>
         </div>
         <div class="relative z-10">
           <blockquote class="text-xl font-medium leading-relaxed">
@@ -33,4 +33,4 @@ import { RouterOutlet, RouterLink } from '@angular/router';
     </div>
   `,
 })
-export class AuthLayoutComponent {}
+export class AuthLayoutComponent { }

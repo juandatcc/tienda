@@ -5,12 +5,14 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Product } from '../models/product.model';
 import { ProductoResponse, ProductoRequest, ProductoAdminResponse } from '../models/backend.models';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
   private http = inject(HttpClient);
+  private notificationService = inject(NotificationService);
   private apiUrl = `${environment.apiUrl}/productos`; // Actualizado a ruta en español
 
   private mapProducto(resp: ProductoResponse | ProductoAdminResponse): Product {
@@ -40,6 +42,7 @@ export class ProductService {
       map((list) => list.map(this.mapProducto)),
       catchError((error) => {
         console.error('Error loading products', error);
+        this.notificationService.error('Error al cargar productos');
         return of([]); // Retornar array vacío en caso de error para evitar fallos en la app
       })
     );
@@ -55,6 +58,7 @@ export class ProductService {
       map(this.mapProducto),
       catchError((error) => {
         console.error(`Error loading product ${id}`, error);
+        this.notificationService.error('Error al cargar el producto');
         return of(undefined);
       })
     );

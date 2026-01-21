@@ -1,152 +1,379 @@
-<!-- Hero Section -->
-<section
-    class="relative rounded-3xl overflow-hidden py-20 px-4 md:px-20 flex flex-col justify-center items-center min-h-[70vh] bg-linear-to-br from-neutral-900 via-black to-blue-950">
-    <span
-        class="inline-block px-4 py-2 rounded-full bg-blue-950/80 text-white text-sm font-semibold mb-6 border border-blue-400">Nueva
-        Colección 2026</span>
-    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight text-center">
-        Eleva tu <br>
-        <span class="bg-linear-to-r from-blue-400 via-blue-200 to-green-400 bg-clip-text text-transparent">Estilo de
-            Vida</span>
-    </h1>
-    <p class="text-lg md:text-xl text-blue-300 mb-8 max-w-xl text-center font-medium">
-        Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en un
-        solo lugar.
-    </p>
-    <div class="flex flex-wrap gap-4 justify-center">
-        <a routerLink="/products"
-            class="px-8 py-3 rounded-lg bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-800 transition">Ver
-            Colección</a>
-        <a href="#featured"
-            class="px-8 py-3 rounded-lg border border-blue-700 text-blue-300 font-bold text-lg hover:bg-blue-900/40 transition">Lo
-            más nuevo</a>
+<!-- Sección Heroica -->
+<section class="relative h-[85vh] min-h-150 flex items-center justify-center overflow-hidden">
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0 z-0">
+        <img src="/banners/baner.jpg" alt="Background" class="w-full h-full object-cover" loading="eager">
+        <!-- Overlay oscuro para mejorar legibilidad del texto -->
+        <div class="absolute inset-0"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(15,23,42,0.5), rgba(2,6,23,0.7))"></div>
+        <div class="absolute inset-0"
+            style="background: linear-gradient(to right, rgba(30,58,138,0.2), rgba(22,78,99,0.2))"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-8 text-center z-10">
+        <span
+            class="inline-block px-6 py-2 mb-6 bg-blue-900/30 border border-blue-600/50 rounded-full text-sm font-semibold text-cyan-400 uppercase tracking-wider">
+            Nueva Colección 2026
+        </span>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-6 text-white">
+            Eleva tu <br>
+            <span class="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Estilo de Vida</span>
+        </h1>
+        <p class="max-w-2xl mx-auto mb-10 text-lg md:text-xl leading-relaxed text-white/70">
+            Descubre nuestra colección exclusiva de dispositivos que definen el futuro. Calidad, diseño y rendimiento en
+            un solo lugar.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <a routerLink="/products"
+                class="inline-flex items-center justify-center gap-2 px-10 py-4 text-base font-semibold text-white bg-blue-600 rounded-full shadow-xl hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-2xl transition-all duration-300">
+                Ver Colección
+            </a>
+            <a href="#featured"
+                class="inline-flex items-center justify-center gap-2 px-10 py-4 text-base font-semibold text-white bg-transparent border-2 border-white/20 rounded-full hover:bg-white/5 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
+                Lo más nuevo
+            </a>
+        </div>
     </div>
 </section>
 
-<!-- Categorías Destacadas -->
-<section id="featured" class="mt-16 px-4 md:px-20">
-    <div class="flex flex-col md:flex-row items-end justify-between mb-10 gap-4">
-        <div>
-            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Categorías</h2>
-            <p class="text-blue-300">Explora por tipo de producto</p>
+<!-- Cuadrícula de Categorías Destacadas -->
+<section id="featured" class="py-20 px-4 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Categorías Destacadas</h2>
+            <p class="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">Explora por tipo de producto</p>
         </div>
-        <a routerLink="/products"
-            class="flex items-center gap-2 px-4 py-2 rounded-full text-blue-300 font-semibold hover:bg-blue-900/40 transition">Ver
-            todas <span class="transition-transform group-hover:translate-x-1">→</span></a>
+        <div class="text-center mb-12">
+            <a routerLink="/products"
+                class="inline-flex items-center gap-2 text-cyan-400 hover:text-blue-500 font-semibold transition-colors group">
+                Ver todas <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+        </div>
     </div>
-    <!-- Carrusel de Categorías -->
-    <div class="relative group/carousel">
-        <!-- Botón Anterior -->
-        <button (click)="scrollCarousel('left')"
-            class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-blue-600/90 hover:bg-blue-700 text-white rounded-full shadow-xl transition-all opacity-0 group-hover/carousel:opacity-100"
-            aria-label="Anterior categoría" title="Anterior categoría">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-        </button>
 
-        <!-- Botón Siguiente -->
-        <button (click)="scrollCarousel('right')"
-            class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center bg-blue-600/90 hover:bg-blue-700 text-white rounded-full shadow-xl transition-all opacity-0 group-hover/carousel:opacity-100"
-            aria-label="Siguiente categoría" title="Siguiente categoría">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-        </button>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Laptops -->
+        <a routerLink="/products" [queryParams]="{categoria: 'LAPTOPS'}"
+            class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl block">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div class="relative p-10 flex flex-col justify-end min-h-80">
+                <span
+                    class="inline-block px-3 py-1 mb-3 text-xs font-bold uppercase rounded-full bg-indigo-950/80 text-indigo-400 border border-indigo-400/30 w-fit">Premium</span>
+                <h3 class="text-3xl font-bold text-white mb-2">Laptops</h3>
+                <p class="text-sm text-white/70 mb-4">Potencia de última generación para profesionales.</p>
+            </div>
+        </a>
 
-        <div #carouselContainer class="overflow-x-auto scrollbar-hide pb-4">
-            <div class="flex gap-6 min-w-max px-2">
-                <!-- Category Card 1 - EQUIPOS DE OFICINA -->
-                <div [routerLink]="['/products']" [queryParams]="{category: 5}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink-0">
-                    <div
-                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-office">
+        <!-- Equipos de Oficina -->
+        <a routerLink="/products" [queryParams]="{categoria: 'EQUIPOS DE OFICINA'}"
+            class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl block">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div class="relative p-10 flex flex-col justify-end min-h-80">
+                <span
+                    class="inline-block px-3 py-1 mb-3 text-xs font-bold uppercase rounded-full bg-blue-950/80 text-blue-400 border border-blue-400/30 w-fit">Oficina</span>
+                <h3 class="text-3xl font-bold text-white mb-2">Equipos de Oficina</h3>
+                <p class="text-sm text-white/70 mb-4">Productividad y eficiencia en tu espacio de trabajo.</p>
+            </div>
+        </a>
+
+        <!-- Redes y Conectividad -->
+        <a routerLink="/products" [queryParams]="{categoria: 'REDES Y CONECTIVIDAD'}"
+            class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl block">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div class="relative p-10 flex flex-col justify-end min-h-80">
+                <span
+                    class="inline-block px-3 py-1 mb-3 text-xs font-bold uppercase rounded-full bg-purple-950/80 text-purple-400 border border-purple-400/30 w-fit">Conectividad</span>
+                <h3 class="text-3xl font-bold text-white mb-2">Redes y Conectividad</h3>
+                <p class="text-sm text-white/70 mb-4">Conexiones rápidas y estables para tu hogar u oficina.</p>
+            </div>
+        </a>
+
+        <!-- Celulares -->
+        <a routerLink="/products" [queryParams]="{categoria: 'CELULARES'}"
+            class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl block">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div class="relative p-10 flex flex-col justify-end min-h-80">
+                <span
+                    class="inline-block px-3 py-1 mb-3 text-xs font-bold uppercase rounded-full bg-pink-950/80 text-pink-400 border border-pink-400/30 w-fit">Móvil</span>
+                <h3 class="text-3xl font-bold text-white mb-2">Celulares</h3>
+                <p class="text-sm text-white/70 mb-4">Los smartphones más innovadores del mercado.</p>
+            </div>
+        </a>
+
+        <!-- Accesorios Tecnológicos -->
+        <a routerLink="/products" [queryParams]="{categoria: 'ACCESORIOS TECNOLOGICOS'}"
+            class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl block">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div class="relative p-10 flex flex-col justify-end min-h-80">
+                <span
+                    class="inline-block px-3 py-1 mb-3 text-xs font-bold uppercase rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-400/30 w-fit">Esenciales</span>
+                <h3 class="text-3xl font-bold text-white mb-2">Accesorios Tecnológicos</h3>
+                <p class="text-sm text-white/70 mb-4">El complemento perfecto para tu setup.</p>
+            </div>
+        </a>
+
+        <!-- Electrodomésticos Hogar -->
+        <a routerLink="/products" [queryParams]="{categoria: 'ELECTRODOMESTICOS HOGAR'}"
+            class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl block">
+            <div class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&q=80&w=800')">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div class="relative p-10 flex flex-col justify-end min-h-80">
+                <span
+                    class="inline-block px-3 py-1 mb-3 text-xs font-bold uppercase rounded-full bg-amber-950/80 text-amber-400 border border-amber-400/30 w-fit">Hogar</span>
+                <h3 class="text-3xl font-bold text-white mb-2">Electrodomésticos Hogar</h3>
+                <p class="text-sm text-white/70 mb-4">Tecnología inteligente para tu hogar.</p>
+            </div>
+        </a>
+    </div>
+</section><!-- Sección Sobre Nosotros -->
+<section class="py-20 px-4 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Contenido -->
+            <div class="space-y-6">
+                <span
+                    class="inline-block px-4 py-1.5 bg-cyan-900/30 border border-cyan-600/50 rounded-full text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                    Sobre Nosotros
+                </span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                    Innovación y Calidad <br>
+                    <span class="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">en cada
+                        producto</span>
+                </h2>
+                <p class="text-lg text-slate-300 leading-relaxed">
+                    Somos tu destino premium para tecnología de vanguardia. En TechHub, nos dedicamos a ofrecer
+                    productos que definen el futuro, combinando diseño excepcional con rendimiento de primera clase.
+                </p>
+                <p class="text-lg text-slate-400 leading-relaxed">
+                    Nuestra misión es proporcionar experiencias tecnológicas que eleven tu estilo de vida, respaldadas
+                    por un servicio al cliente incomparable y una garantía de calidad absoluta.
+                </p>
+                <div class="flex flex-wrap gap-8 pt-4">
+                    <div class="space-y-1">
+                        <div class="text-3xl font-bold text-cyan-400">500+</div>
+                        <div class="text-sm text-slate-400">Productos</div>
                     </div>
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
+                    <div class="space-y-1">
+                        <div class="text-3xl font-bold text-cyan-400">10K+</div>
+                        <div class="text-sm text-slate-400">Clientes Felices</div>
                     </div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-purple-400 text-xs font-bold uppercase mb-2 block">Profesional</span>
-                        <h3 class="text-2xl text-white font-bold mb-2">Equipos de Oficina</h3>
-                        <p class="text-blue-200 text-sm">Impresoras, escáneres y dispositivos empresariales.</p>
+                    <div class="space-y-1">
+                        <div class="text-3xl font-bold text-cyan-400">99%</div>
+                        <div class="text-sm text-slate-400">Satisfacción</div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Category Card 2 - REDES Y CONECTIVIDAD -->
-                <div [routerLink]="['/products']" [queryParams]="{category: 7}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink-0">
-                    <div
-                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-network">
+            <!-- Imagen -->
+            <div class="relative">
+                <div
+                    class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800"
+                        alt="Sobre Nosotros" class="w-full h-100 object-cover">
+                    <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 to-transparent"></div>
+                </div>
+                <!-- Decoración -->
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-cyan-500/20 rounded-full blur-3xl animate-pulse">
+                </div>
+                <div class="absolute -top-6 -right-6 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl animate-pulse">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Blog -->
+<section class="py-20 px-4 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <span
+                class="inline-block px-4 py-1.5 mb-4 bg-blue-900/30 border border-blue-600/50 rounded-full text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                Blog
+            </span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                Últimas Novedades
+            </h2>
+            <p class="text-lg text-white/60 max-w-2xl mx-auto">
+                Mantente al día con las últimas tendencias en tecnología
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Artículo 1 -->
+            <article
+                class="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 hover:bg-slate-900/70 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+                <div class="relative h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=800"
+                        alt="Artículo"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-linear-to-t from-slate-900 to-transparent"></div>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center gap-2 text-xs text-cyan-400">
+                        <span>Tecnología</span>
+                        <span>•</span>
+                        <span>5 min lectura</span>
                     </div>
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
-                    </div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-cyan-400 text-xs font-bold uppercase mb-2 block">Conectividad</span>
-                        <h3 class="text-2xl text-white font-bold mb-2">Redes y Conectividad</h3>
-                        <p class="text-blue-200 text-sm">Routers, switches y soluciones de red.</p>
+                    <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                        Las 10 tendencias tech de 2026
+                    </h3>
+                    <p class="text-sm text-slate-400 line-clamp-2">
+                        Descubre las innovaciones que están transformando la industria este año.
+                    </p>
+                    <div class="flex items-center gap-2 text-cyan-400 text-sm font-semibold pt-2">
+                        Leer más
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                 </div>
+            </article>
 
-                <!-- Category Card 3 - LAPTOPS -->
-                <div [routerLink]="['/products']" [queryParams]="{category: 1}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
-                    <div
-                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-laptop">
+            <!-- Artículo 2 -->
+            <article
+                class="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 hover:bg-slate-900/70 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+                <div class="relative h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800"
+                        alt="Artículo"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-linear-to-t from-slate-900 to-transparent"></div>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center gap-2 text-xs text-cyan-400">
+                        <span>Productividad</span>
+                        <span>•</span>
+                        <span>7 min lectura</span>
                     </div>
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
-                    </div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-indigo-400 text-xs font-bold uppercase mb-2 block">Premium</span>
-                        <h3 class="text-2xl text-white font-bold mb-2">Laptops</h3>
-                        <p class="text-blue-200 text-sm">Computadores portátiles para uso personal y profesional.</p>
+                    <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                        Cómo optimizar tu setup de trabajo
+                    </h3>
+                    <p class="text-sm text-slate-400 line-clamp-2">
+                        Consejos prácticos para crear un espacio de trabajo eficiente y cómodo.
+                    </p>
+                    <div class="flex items-center gap-2 text-cyan-400 text-sm font-semibold pt-2">
+                        Leer más
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                 </div>
+            </article>
 
-                <!-- Category Card 4 - CELULARES -->
-                <div [routerLink]="['/products']" [queryParams]="{category: 2}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
-                    <div
-                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-mobile">
+            <!-- Artículo 3 -->
+            <article
+                class="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 hover:bg-slate-900/70 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+                <div class="relative h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=800"
+                        alt="Artículo"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-linear-to-t from-slate-900 to-transparent"></div>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center gap-2 text-xs text-cyan-400">
+                        <span>Guías</span>
+                        <span>•</span>
+                        <span>10 min lectura</span>
                     </div>
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
-                    </div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-blue-300 text-xs font-bold uppercase mb-2 block">Destacado</span>
-                        <h3 class="text-2xl text-white font-bold mb-2">Celulares</h3>
-                        <p class="text-blue-200 text-sm">Teléfonos inteligentes de última generación.</p>
+                    <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                        Guía de compra: Portátiles 2026
+                    </h3>
+                    <p class="text-sm text-slate-400 line-clamp-2">
+                        Todo lo que necesitas saber antes de comprar tu próximo portátil.
+                    </p>
+                    <div class="flex items-center gap-2 text-cyan-400 text-sm font-semibold pt-2">
+                        Leer más
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                 </div>
+            </article>
+        </div>
+    </div>
+</section>
 
-                <!-- Category Card 5 - ACCESORIOS TECNOLOGICOS -->
-                <div [routerLink]="['/products']" [queryParams]="{category: 3}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
-                    <div
-                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-accessory">
-                    </div>
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
-                    </div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-emerald-400 text-xs font-bold uppercase mb-2 block">Esenciales</span>
-                        <h3 class="text-2xl text-white font-bold mb-2">Accesorios Tecnológicos</h3>
-                        <p class="text-blue-200 text-sm">Cargadores, cables, audífonos y complementos.</p>
-                    </div>
-                </div>
+<!-- Sección de Contacto -->
+<section class="py-20 px-4 bg-slate-950/90">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <span
+                class="inline-block px-4 py-1.5 mb-4 bg-cyan-900/30 border border-cyan-600/50 rounded-full text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                Contacto
+            </span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                ¿Tienes preguntas?
+            </h2>
+            <p class="text-lg text-white/60 max-w-2xl mx-auto">
+                Estamos aquí para ayudarte. Contáctanos y te responderemos lo antes posible.
+            </p>
+        </div>
 
-                <!-- Category Card 6 - ELECTRODOMESTICOS HOGAR -->
-                <div [routerLink]="['/products']" [queryParams]="{category: 4}" class="relative w-80 h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer shrink">
-                    <div
-                        class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 category-bg-home">
-                    </div>
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-70 transition">
-                    </div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-yellow-400 text-xs font-bold uppercase mb-2 block">Hogar</span>
-                        <h3 class="text-2xl text-white font-bold mb-2">Electrodomésticos Hogar</h3>
-                        <p class="text-blue-200 text-sm">Refrigeradores, lavadoras y equipos esenciales.</p>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Correo -->
+            <div
+                class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-6 text-center hover:bg-slate-900/70 transition-all duration-300 hover:-translate-y-1">
+                <div
+                    class="flex items-center justify-center w-14 h-14 mx-auto mb-4 rounded-full bg-cyan-500/10 text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
                 </div>
+                <h3 class="text-lg font-bold text-white mb-2">Email</h3>
+                <p class="text-sm text-slate-400 mb-3">Envíanos un correo</p>
+                <a href="mailto:info@techhub.com"
+                    class="text-cyan-400 hover:text-blue-500 font-semibold text-sm transition-colors">
+                    info@techhub.com
+                </a>
+            </div>
+
+            <!-- Teléfono -->
+            <div
+                class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-6 text-center hover:bg-slate-900/70 transition-all duration-300 hover:-translate-y-1">
+                <div
+                    class="flex items-center justify-center w-14 h-14 mx-auto mb-4 rounded-full bg-cyan-500/10 text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Teléfono</h3>
+                <p class="text-sm text-slate-400 mb-3">Llámanos directamente</p>
+                <a href="tel:+573001234567"
+                    class="text-cyan-400 hover:text-blue-500 font-semibold text-sm transition-colors">
+                    +57 300 123 4567
+                </a>
+            </div>
+
+            <!-- Ubicación -->
+            <div
+                class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-6 text-center hover:bg-slate-900/70 transition-all duration-300 hover:-translate-y-1">
+                <div
+                    class="flex items-center justify-center w-14 h-14 mx-auto mb-4 rounded-full bg-cyan-500/10 text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Ubicación</h3>
+                <p class="text-sm text-slate-400 mb-3">Visítanos</p>
+                <p class="text-cyan-400 font-semibold text-sm">
+                    Bogotá, Colombia
+                </p>
             </div>
         </div>
     </div>

@@ -10,18 +10,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './home.component.html',
+
 })
-export class HomeComponent {
-  @ViewChild('carouselContainer') carouselContainer!: ElementRef;
-
-  scrollCarousel(direction: 'left' | 'right') {
-    const container = this.carouselContainer.nativeElement;
-    const scrollAmount = 400; // Desplazamiento en píxeles
-
-    if (direction === 'left') {
-      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    } else {
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  }
-}
+export class HomeComponent { }

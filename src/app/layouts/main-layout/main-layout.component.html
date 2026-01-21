@@ -1,198 +1,396 @@
-<div class="min-h-screen flex flex-col bg-neutral-900 text-white relative">
-    <!-- Fondo decorativo -->
-    <div class="pointer-events-none fixed inset-0 z-0">
-        <div class="absolute -top-40 -left-40 w-150 h-150 bg-blue-900 opacity-30 rounded-full blur-3xl"></div>
-        <div class="absolute top-1/2 right-0 w-100 h-100 bg-blue-400 opacity-20 rounded-full blur-2xl"></div>
+<div class="layout-container">
+    <!-- Decorative background blobs -->
+    <div class="bg-blobs-container">
+        <div class="blob-primary"></div>
+        <div class="blob-accent"></div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-black/95 border-b border-neutral-800">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a routerLink="/"
-                class="text-2xl font-bold bg-linear-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">Linksys
-                Store</a>
-            <div class="hidden md:flex gap-8">
-                <a routerLink="/"
-                    class="relative text-base font-medium text-white hover:text-green-400 transition">Inicio</a>
-                <a routerLink="/products"
-                    class="relative text-base font-medium text-white hover:text-green-400 transition">Productos</a>
+    <!-- Barra de navegación -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a routerLink="/" class="text-2xl font-bold text-cyan-400 hover:text-blue-500 transition-colors"
+                    (click)="closeMobileMenu()">TechHub</a>
+
+                <!-- Navegación Desktop -->
+                <div class="hidden md:flex gap-8 items-center">
+                    <a routerLink="/"
+                        class="relative px-4 py-2 font-medium text-white hover:text-cyan-400 transition-colors group"
+                        (click)="closeMobileMenu()">
+                        Inicio
+                        <span
+                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a routerLink="/products"
+                        class="relative px-4 py-2 font-medium text-white hover:text-cyan-400 transition-colors group"
+                        (click)="closeMobileMenu()">
+                        Productos
+                        <span
+                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+
+                    <!-- Barra de búsqueda -->
+                    <div class="relative">
+                        <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"
+                            placeholder="Buscar productos..."
+                            class="w-64 px-4 py-2 pl-10 pr-10 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-all" />
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        @if (searchQuery()) {
+                        <button (click)="clearSearch()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                            type="button" title="Limpiar búsqueda">
+                            <span class="sr-only">Limpiar búsqueda</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        }
+                    </div>
+                </div>
+
+                <!-- Acciones -->
+                <div class="flex gap-4 items-center">
+                    <!-- Carrito -->
+                    <button (click)="cartService.toggleCart()"
+                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white hover:text-cyan-400 transition-all relative"
+                        title="Carrito de compras" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="8" cy="21" r="1" />
+                            <circle cx="19" cy="21" r="1" />
+                            <path
+                                d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                        </svg>
+
+                        @if (cartService.count() > 0) {
+                        <span
+                            class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full min-w-5 text-center">{{
+                            cartService.count() }}</span>
+                        }
+                    </button>
+
+                    <!-- Usuario Autenticado -->
+                    @if (authService.currentUser()) {
+                    <div class="relative">
+                        <button (click)="toggleUserMenu()"
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all"
+                            [title]="'Hola, ' + (authService.currentUser()?.correo || 'Usuario')" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="hidden md:block text-sm">{{ authService.currentUser()?.correo }}</span>
+                        </button>
+
+                        <!-- Menú Desplegable -->
+                        @if (showUserMenu()) {
+                        <div
+                            class="absolute top-14 right-0 w-64 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-2xl">
+                            <div class="px-3 py-2 flex flex-col gap-1">
+                                <span class="text-white font-medium">{{ authService.currentUser()?.nombre ||
+                                    authService.currentUser()?.correo }}</span>
+                                @if (authService.currentUser()?.rol === 'ADMIN') {
+                                <span
+                                    class="inline-block px-2 py-0.5 bg-blue-600 text-white text-xs font-semibold rounded w-fit">Admin</span>
+                                }
+                            </div>
+                            <hr class="border-white/10 my-2" />
+
+                            <!-- Opciones del Menú -->
+                            <button (click)="closeUserMenu()" routerLink="/profile"
+                                class="w-full px-3 py-2 text-left text-white hover:bg-white/5 hover:text-cyan-400 rounded-lg transition-all text-sm"
+                                type="button">
+                                Mi Perfil
+                            </button>
+                            <button (click)="closeUserMenu()" routerLink="/orders"
+                                class="w-full px-3 py-2 text-left text-white hover:bg-white/5 hover:text-cyan-400 rounded-lg transition-all text-sm"
+                                type="button">
+                                Mis Pedidos
+                            </button>
+
+                            @if (authService.currentUser()?.rol === 'ADMIN') {
+                            <hr class="border-white/10 my-2" />
+                            <button (click)="closeUserMenu()" routerLink="/admin"
+                                class="w-full px-3 py-2 text-left text-cyan-400 hover:bg-white/5 rounded-lg transition-all text-sm"
+                                type="button">
+                                Panel de Administrador
+                            </button>
+                            }
+
+                            <hr class="border-white/10 my-2" />
+                            <button (click)="logout()"
+                                class="w-full px-3 py-2 text-left text-red-400 hover:bg-red-950/20 rounded-lg transition-all text-sm"
+                                type="button">
+                                Cerrar Sesión
+                            </button>
+                        </div>
+                        }
+                    </div>
+
+                    } @else {
+                    <!-- Botón de Iniciar Sesión -->
+                    <button routerLink="/auth/login"
+                        class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10 17 15 12 10 7"></polyline>
+                            <line x1="15" y1="12" x2="3" y2="12"></line>
+                        </svg>
+                        Iniciar Sesión
+                    </button>
+
+                    }
+
+                    <!-- Botón menú móvil -->
+                    <button (click)="toggleMobileMenu()"
+                        class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all"
+                        type="button">
+                        @if (showMobileMenu()) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        } @else {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                        }
+                    </button>
+                </div>
             </div>
-            <div class="flex items-center gap-4">
-                <button (click)="cartService.toggleCart()"
-                    class="relative p-2 rounded-full hover:bg-neutral-800 transition" title="Carrito de compras"
-                    type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="text-white">
-                        <circle cx="8" cy="21" r="1" />
-                        <circle cx="19" cy="21" r="1" />
-                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        @if (showMobileMenu()) {
+        <div
+            class="md:hidden flex flex-col gap-2 p-4 bg-linear-to-b from-slate-900 to-slate-950 border-t border-cyan-500/20 backdrop-blur-xl">
+            <a routerLink="/"
+                class="flex items-center gap-4 px-4 py-3.5 text-white hover:bg-linear-to-r hover:from-cyan-500/10 hover:to-blue-500/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group border border-transparent hover:border-cyan-500/30"
+                (click)="closeMobileMenu()">
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 group-hover:bg-cyan-500/20 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </div>
+                <span class="font-semibold">Inicio</span>
+            </a>
+            <a routerLink="/products"
+                class="flex items-center gap-4 px-4 py-3.5 text-white hover:bg-linear-to-r hover:from-cyan-500/10 hover:to-blue-500/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group border border-transparent hover:border-cyan-500/30"
+                (click)="closeMobileMenu()">
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 group-hover:bg-cyan-500/20 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                </div>
+                <span class="font-semibold">Productos</span>
+            </a>
+            <a routerLink="/cart"
+                class="flex items-center gap-4 px-4 py-3.5 text-white hover:bg-linear-to-r hover:from-cyan-500/10 hover:to-blue-500/10 hover:text-cyan-400 rounded-xl transition-all duration-300 group border border-transparent hover:border-cyan-500/30"
+                (click)="closeMobileMenu()">
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 group-hover:bg-cyan-500/20 transition-all relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+                        </path>
                     </svg>
                     @if (cartService.count() > 0) {
                     <span
-                        class="absolute -top-1 -right-1 bg-linear-to-r from-blue-900 to-blue-300 text-xs font-bold px-2 py-0.5 rounded-full border border-white">{{
+                        class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-4 text-center">{{
                         cartService.count() }}</span>
                     }
-                </button>
-                @if (authService.currentUser()) {
-                <div class="relative">
-                    <button (click)="toggleUserMenu()"
-                        class="flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-700 hover:bg-white hover:text-black transition text-sm font-medium"
-                        [title]="'Hola, ' + (authService.currentUser()?.correo || 'Usuario')" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <span class="hidden md:inline-block truncate max-w-30">{{ authService.currentUser()?.correo
-                            }}</span>
-                    </button>
-                    @if (showUserMenu()) {
-                    <div
-                        class="absolute right-0 mt-2 w-56 bg-neutral-900 border border-neutral-700 rounded-xl shadow-xl z-50 animate-fade-in">
-                        <div class="px-4 py-3 border-b border-neutral-800 flex justify-between items-center">
-                            <span class="font-semibold text-white text-sm">{{ authService.currentUser()?.nombre ||
-                                authService.currentUser()?.correo }}</span>
-                            @if (authService.currentUser()?.rol === 'ADMIN') {
-                            <span
-                                class="bg-black text-amber-600 px-2 py-0.5 rounded-full text-xs font-bold uppercase">Admin</span>
-                            }
-                        </div>
-                        <button (click)="closeUserMenu()" routerLink="/profile"
-                            class="w-full text-left px-4 py-2 hover:bg-neutral-800 text-sm transition">Mi
-                            Perfil</button>
-                        <button (click)="closeUserMenu()" routerLink="/orders"
-                            class="w-full text-left px-4 py-2 hover:bg-neutral-800 text-sm transition">Mis
-                            Pedidos</button>
-                        @if (authService.currentUser()?.rol === 'ADMIN') {
-                        <button (click)="closeUserMenu()" routerLink="/admin"
-                            class="w-full text-left px-4 py-2 hover:bg-neutral-800 text-sm font-bold transition">Panel
-                            de Administrador</button>
-                        }
-                        <button (click)="logout()"
-                            class="w-full text-left px-4 py-2 hover:bg-red-900 text-red-400 text-sm transition">Cerrar
-                            Sesión</button>
-                    </div>
-                    }
                 </div>
-                } @else {
-                <button routerLink="/auth/login"
-                    class="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-900 to-blue-500 text-white rounded-lg font-semibold shadow hover:from-blue-800 hover:to-blue-400 transition text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    Iniciar Sesión
-                </button>
-                }
-                <!-- Menú móvil -->
-                <button (click)="toggleMobileMenu()"
-                    class="md:hidden flex items-center p-2 rounded-lg hover:bg-neutral-800 transition" type="button">
-                    @if (showMobileMenu()) {
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                    } @else {
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                    }
-                </button>
-            </div>
-        </div>
-        <!-- Menú móvil desplegable -->
-        @if (showMobileMenu()) {
-        <div class="md:hidden grid grid-cols-1 gap-2 px-4 py-3 bg-black/95 border-t border-blue-900 animate-fade-in">
-            <a routerLink="/"
-                class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 text-white hover:bg-blue-900 transition"
-                (click)="goToHome()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-                Inicio
+                <span class="font-semibold">Carrito</span>
             </a>
-            <a routerLink="/products"
-                class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 text-white hover:bg-blue-900 transition"
-                (click)="goToProducts()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                Productos
-            </a>
-            <a routerLink="/cart"
-                class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 text-white hover:bg-blue-900 transition"
-                (click)="goToCart()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                Carrito
-            </a>
+
         </div>
         }
     </nav>
 
-    <!-- Contenido principal -->
-    <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 z-10">
+    <!-- Contenido Principal -->
+    <main class="main-content">
         <router-outlet></router-outlet>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-neutral-950/90 border-t border-neutral-800 py-12 z-10">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="space-y-4">
-                <h3 class="text-xl font-bold bg-linear-to-r from-blue-900 to-blue-300 bg-clip-text text-transparent">
-                    Linksys Store</h3>
-                <p class="text-neutral-400 text-sm max-w-xs">Tu destino premium para tecnología de vanguardia. Calidad y
-                    diseño sin compromisos.</p>
+    <!-- Pie de página -->
+    <footer class="relative mt-16 border-t border-white/10 bg-slate-950/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <!-- Grid principal -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Columna de marca -->
+                <div class="space-y-4">
+                    <h3
+                        class="text-2xl font-bold bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                        Linksys Store
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Tu destino premium para tecnología de vanguardia. Calidad y diseño sin compromisos.
+                    </p>
+                    <!-- Redes sociales -->
+                    <div class="flex gap-3 pt-2">
+                        <a href="#"
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-cyan-400 transition-all hover:scale-110"
+                            title="Twitter/X">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-cyan-400 transition-all hover:scale-110"
+                            title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-cyan-400 transition-all hover:scale-110"
+                            title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Explorar -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Explorar</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a routerLink="/products"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Productos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Categorías
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Nuevos lanzamientos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Empresa -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Sobre Nosotros
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Contacto
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Privacidad
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="text-slate-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 group">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-cyan-500/0 group-hover:bg-cyan-500 transition-all"></span>
+                                Términos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold mb-4 text-white">Explorar</h4>
-                <ul class="flex flex-col gap-2 text-neutral-400 text-sm">
-                    <li><a href="#" class="hover:text-blue-400 transition">Productos</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition">Categorías</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition">Nuevos lanzamientos</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4 text-white">Empresa</h4>
-                <ul class="flex flex-col gap-2 text-neutral-400 text-sm">
-                    <li><a href="#" class="hover:text-blue-400 transition">Sobre Nosotros</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition">Contacto</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition">Blog</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4 text-white">Legal</h4>
-                <ul class="flex flex-col gap-2 text-neutral-400 text-sm">
-                    <li><a href="#" class="hover:text-blue-400 transition">Privacidad</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition">Términos</a></li>
-                </ul>
-            </div>
-        </div>
-        <div
-            class="max-w-7xl mx-auto px-4 mt-8 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center text-neutral-500 text-xs">
-            <p>© 2026 Linksys Store. Todos los derechos reservados.</p>
-            <div class="flex gap-4 mt-4 md:mt-0">
-                <div
-                    class="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-blue-900 transition cursor-pointer">
-                    <span class="font-bold">X</span>
+
+            <!-- Línea divisoria -->
+            <div class="border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-slate-400 text-sm">
+                        © 2026 <span class="text-cyan-400 font-semibold">TechHub</span>. Todos los derechos
+                        reservados.
+                    </p>
+                    <div class="flex items-center gap-2 text-slate-500 text-xs">
+                        <span>Hecho con</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="red"
+                            class="animate-pulse">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                        <span>en Colombia</span>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
+
     <app-cart-sidebar />
+    <app-toast />
+
 </div>
