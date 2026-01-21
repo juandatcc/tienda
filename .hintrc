@@ -3,13 +3,24 @@
     "development"
   ],
   "hints": {
-    "axe/name-role-value": [
+    "axe/text-alternatives": "off",
+    "compat-api/css": [
       "default",
       {
-        "button-name": "off"
+        "ignore": [
+          "backdrop-filter"
+        ]
       }
     ],
     "typescript-config/is-valid": "off",
     "no-inline-styles": "off"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not chrome <= 112",
+    "not ios_saf <= 26.2",
+    "not safari <= 26.2",
+    "not samsung <= 29"
+  ]
 }

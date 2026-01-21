@@ -1,35 +1,34 @@
-<div>
-    <h1 class="login-header">Bienvenido de nuevo</h1>
-    <p class="login-subheader">Ingresa tus credenciales para acceder a tu cuenta.</p>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" formControlName="email" class="form-input"
-                [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
-            <p *ngIf="isInvalid('email')" class="form-error">Email inválido</p>
-        </div>
-
-        <div class="form-group">
-            <div class="password-header">
-                <label for="password" class="form-label">Contraseña</label>
-                <a href="#" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+<div class="flex flex-col items-center justify-center min-h-[70vh] px-4">
+    <!-- Logo centrado solo en móvil -->
+    <a routerLink="/" class="md:hidden flex justify-center w-full mb-6 select-none" title="Ir al inicio">
+        <span
+            class="text-2xl font-bold bg-gradient-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">TechHub</span>
+    </a>
+    <div class="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl p-8">
+        <h1 class="text-2xl font-bold text-white mb-2">Bienvenido de nuevo</h1>
+        <p class="text-neutral-400 mb-6">Ingresa tus credenciales para acceder a tu cuenta.</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+                <label for="email" class="text-sm font-medium text-blue-300">Email</label>
+                <input type="email" id="email" formControlName="email"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
+                <p *ngIf="isInvalid('email')" class="text-red-400 text-xs mt-1">Email inválido</p>
             </div>
-            <input type="password" id="password" formControlName="password" class="form-input"
-                [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
-        </div>
-
-        <div *ngIf="error()" class="error-alert">
-            {{ error() }}
-        </div>
-
-        <app-button type="submit" [fullWidth]="true" [loading]="loading()">
-            Iniciar Sesión
-        </app-button>
-
-        <p class="register-prompt">
-            ¿No tienes cuenta?
-            <a routerLink="../register" class="register-link">Regístrate</a>
-        </p>
-    </form>
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <label for="password" class="text-sm font-medium text-blue-300">Contraseña</label>
+                    <a href="#" class="text-xs text-blue-400 hover:underline">¿Olvidaste tu contraseña?</a>
+                </div>
+                <input type="password" id="password" formControlName="password"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
+            </div>
+            <div *ngIf="error()" class="px-4 py-2 bg-red-900/80 text-red-300 rounded-lg text-sm">{{ error() }}</div>
+            <app-button type="submit" [fullWidth]="true" [loading]="loading()">Iniciar Sesión</app-button>
+            <p class="text-center text-sm text-neutral-400">¿No tienes cuenta?
+                <a routerLink="../register" class="text-blue-400 hover:underline">Regístrate</a>
+            </p>
+        </form>
+    </div>
 </div>

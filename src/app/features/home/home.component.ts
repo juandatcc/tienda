@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 /**
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-home',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+
 })
 export class HomeComponent { }

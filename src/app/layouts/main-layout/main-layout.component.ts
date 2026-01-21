@@ -1,39 +1,34 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
 import { CartSidebarComponent } from "../../shared/ui/cart-sidebar/cart-sidebar.component";
+import { ToastComponent } from "../../shared/ui/toast/toast.component";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, CartSidebarComponent],
-  templateUrl: './main-layout.component.html'
+  imports: [CommonModule, RouterOutlet, RouterLink, CartSidebarComponent, ToastComponent, FormsModule],
+  templateUrl: './main-layout.component.html',
+
 })
-export class LayoutComponent {
-  toggleCart() {
-    throw new Error('Method not implemented.');
-  }
-  goLogin() {
-    throw new Error('Method not implemented.');
-  }
-  goCart() {
-    throw new Error('Method not implemented.');
-  }
-  goProducts() {
-    throw new Error('Method not implemented.');
-  }
-  goHome() {
-    throw new Error('Method not implemented.');
-  }
-  logout() {
-    throw new Error('Method not implemented.');
-  }
+
+// Componente que define el layout principal de la aplicación
+export class MainLayoutComponent {
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
+  // Señales para controlar estados del header
   mobileMenuOpen = signal(false);
   userMenuOpen = signal(false);
+  searchQuery = signal('');
+  showSearchBar = signal(false);
 
+  /**
+   * Alterna la visibilidad del menú de usuario
+   */
   showMobileMenu = this.mobileMenuOpen;
   showUserMenu = this.userMenuOpen;
 
@@ -42,6 +37,14 @@ export class LayoutComponent {
     public cartService: CartService,
     private router: Router
   ) { }
+
+  /**
+   * Cierra la sesión del usuario
+   */
+  logout() {
+    this.closeUserMenu();
+    this.authService.logout();
+  }
 
   toggleMobileMenu() {
     this.mobileMenuOpen.update(v => !v);
@@ -57,6 +60,25 @@ export class LayoutComponent {
 
   closeUserMenu() {
     this.userMenuOpen.set(false);
+  }
+
+  /**
+   * Maneja la búsqueda de productos
+   */
+  onSearch() {
+    const query = this.searchQuery().trim();
+    if (query) {
+      this.router.navigate(['/products'], { queryParams: { busqueda: query } });
+      this.closeMobileMenu();
+    }
+  }
+
+  /**
+   * Limpia la búsqueda
+   */
+  clearSearch() {
+    this.searchQuery.set('');
+    this.router.navigate(['/products']);
   }
 }
 

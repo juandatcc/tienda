@@ -27,13 +27,14 @@ export class ButtonComponent {
 
   /** Evento emitido al hacer click */
   @Output() onClick = new EventEmitter<Event>();
+  ariaLabel: any;
 
   /**
    * Genera las clases CSS dinámicamente según las props.
    */
   getClasses(): string {
     const base = 'font-medium rounded-full';
-    
+
     const variants = {
       primary: 'bg-primary text-white hover:bg-primary-dark shadow-lg hover:shadow-primary/30',
       outline: 'border border-slate-200 text-slate-700 hover:bg-slate-50',

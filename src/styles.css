@@ -53,6 +53,23 @@ body {
   background-color: #64748b;
 }
 
+/* Ocultar scrollbar para carrusel */
+.scrollbar-hide {
+  /* Hide scrollbar for IE, Edge */
+  -ms-overflow-style: none;
+  /* Hide scrollbar for Firefox (not supported in Chrome <121, Safari, Samsung Internet) */
+  scrollbar-width: none;
+}
+/* Hide scrollbar for Chrome, Safari, Opera, Samsung Internet */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll suave para carrusel */
+.overflow-x-auto {
+  scroll-behavior: smooth;
+}
+
 /* =========================
    Tipografía
 ========================= */

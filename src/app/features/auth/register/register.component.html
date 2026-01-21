@@ -1,54 +1,55 @@
-<div>
-    <h1 class="register-header">Crear Cuenta</h1>
-    <p class="register-subheader">Únete a nosotros y disfruta de la experiencia completa.</p>
-
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
-        <div class="form-group">
-            <label for="fullName" class="form-label">Nombre Completo</label>
-            <input type="text" id="fullName" formControlName="fullName" class="form-input"
-                [class.border-red-500]="isInvalid('fullName')" placeholder="Juan Pérez">
-        </div>
-
-        <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" formControlName="email" class="form-input"
-                [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" id="password" formControlName="password" class="form-input"
-                [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
-        </div>
-
-        <div class="form-group">
-            <label for="phone" class="form-label">Teléfono</label>
-            <input type="tel" id="phone" formControlName="phone" class="form-input" placeholder="+57 300 123 4567">
-        </div>
-
-        <div class="form-group">
-            <label for="address" class="form-label">Dirección</label>
-            <input type="text" id="address" formControlName="address" class="form-input"
-                placeholder="Calle 123 # 45-67">
-        </div>
-
-        <div class="form-group">
-            <label for="adminCode" class="form-label">Código de Administrador (Opcional)</label>
-            <input type="text" id="adminCode" formControlName="adminCode" class="form-input"
-                placeholder="Código secreto">
-        </div>
-
-        <div *ngIf="error()" class="error-alert">
-            {{ error() }}
-        </div>
-
-        <app-button type="submit" [fullWidth]="true" [loading]="loading()">
-            Registrarse
-        </app-button>
-
-        <p class="login-prompt">
-            ¿Ya tienes cuenta?
-            <a routerLink="../login" class="login-link">Inicia Sesión</a>
-        </p>
-    </form>
+<div class="flex flex-col items-center justify-center min-h-[70vh] px-4">
+    <!-- Logo centrado solo en móvil -->
+    <a routerLink="/" class="md:hidden flex justify-center w-full mb-6 select-none" title="Ir al inicio">
+        <span
+            class="text-2xl font-bold bg-linear-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">TechHub</span>
+    </a>
+    <div class="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl p-8">
+        <h1 class="text-2xl font-bold text-white mb-2">Crear Cuenta</h1>
+        <p class="text-neutral-400 mb-6">Únete a nosotros y disfruta de la experiencia completa.</p>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+                <label for="fullName" class="text-sm font-medium text-blue-300">Nombre Completo</label>
+                <input type="text" id="fullName" formControlName="fullName"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('fullName')" placeholder="Juan Pérez">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="email" class="text-sm font-medium text-blue-300">Email</label>
+                <input type="email" id="email" formControlName="email"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="password" class="text-sm font-medium text-blue-300">Contraseña</label>
+                <input type="password" id="password" formControlName="password"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="phone" class="text-sm font-medium text-blue-300">Teléfono</label>
+                <input type="tel" id="phone" formControlName="phone"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    placeholder="+57 300 123 4567">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="address" class="text-sm font-medium text-blue-300">Dirección</label>
+                <input type="text" id="address" formControlName="address"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    placeholder="Calle 123 # 45-67">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="adminCode" class="text-sm font-medium text-blue-300">Código de Administrador
+                    (Opcional)</label>
+                <input type="text" id="adminCode" formControlName="adminCode"
+                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
+                    placeholder="Código secreto">
+            </div>
+            <div *ngIf="error()" class="px-4 py-2 bg-red-900/80 text-red-300 rounded-lg text-sm">{{ error() }}</div>
+            <app-button type="submit" [fullWidth]="true" [loading]="loading()">Registrarse</app-button>
+            <p class="text-center text-sm text-neutral-400">¿Ya tienes cuenta?
+                <a routerLink="../login" class="text-blue-400 hover:underline">Inicia Sesión</a>
+            </p>
+        </form>
+    </div>
 </div>
