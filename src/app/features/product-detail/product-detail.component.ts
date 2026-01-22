@@ -12,11 +12,11 @@ import { PriceFormatPipe } from '../../shared/pipes/price-format.pipe';
   imports: [CommonModule, PriceFormatPipe],
   template: `
     @if (product()) {
-      <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Image Gallery -->
-            <div class="bg-gradient-to-br from-slate-900/80 to-slate-800/80 rounded-3xl p-8 border border-white/10 backdrop-blur-xl flex items-center justify-center aspect-square">
+            <div class="bg-linear-to-br from-slate-900/80 to-slate-800/80 rounded-3xl p-8 border border-white/10 backdrop-blur-xl flex items-center justify-center aspect-square">
               <img
                 [src]="product()?.imageUrl || '/banners/hero.jpg'"
                 [alt]="product()?.name"
@@ -32,7 +32,7 @@ import { PriceFormatPipe } from '../../shared/pipes/price-format.pipe';
                 </span>
                 <h1 class="text-4xl font-bold text-white mt-4 mb-2">{{ product()?.name }}</h1>
                 <div class="flex items-center gap-4">
-                  <span class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  <span class="text-3xl font-bold bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     {{ product()?.price | priceFormat }}
                   </span>
                   @if (product()?.stock && product()!.stock > 0) {
@@ -81,7 +81,7 @@ import { PriceFormatPipe } from '../../shared/pipes/price-format.pipe';
         </div>
       </div>
     } @else if (error()) {
-      <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-col items-center justify-center py-32">
             <div class="text-red-400 text-6xl mb-4">⚠️</div>
@@ -94,7 +94,7 @@ import { PriceFormatPipe } from '../../shared/pipes/price-format.pipe';
         </div>
       </div>
     } @else {
-      <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
           <div class="animate-pulse grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div class="bg-slate-800/50 rounded-3xl aspect-square border border-white/10"></div>

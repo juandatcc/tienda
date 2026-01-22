@@ -34,7 +34,7 @@ import { AuthService } from '../services/auth.service';
  * }
  * ```
  */
-export const authGuard: CanActivateFn = (route) => {
+export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -43,14 +43,18 @@ export const authGuard: CanActivateFn = (route) => {
 
   // Si no hay usuario autenticado, redirigir a login
   if (!user) {
-    return router.createUrlTree(['/auth/login']);
+    return router.createUrlTree(['/auth/login'], {
+      queryParams: { returnUrl: state.url },
+    });
   }
 
   // Verificar si la ruta requiere un rol específico
   const requiredRole = route.data?.['role'];
   if (requiredRole && user.rol !== requiredRole) {
-    // Si el usuario no tiene el rol requerido, redirigir a home
-    return router.createUrlTree(['/']);
+    // Si el usuario no tiene el rol requerido, enviamos a login para que use una cuenta válida
+    return router.createUrlTree(['/auth/login'], {
+      queryParams: { returnUrl: state.url },
+    });
   }
 
   // Usuario autenticado y con permisos correctos

@@ -7,14 +7,15 @@
 
     <!-- Barra de navegación -->
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-16 gap-3">
                 <!-- Logo -->
-                <a routerLink="/" class="text-2xl font-bold text-cyan-400 hover:text-blue-500 transition-colors"
+                <a routerLink="/"
+                    class="text-2xl font-bold text-cyan-400 hover:text-blue-500 transition-colors shrink-0"
                     (click)="closeMobileMenu()">TechHub</a>
 
                 <!-- Navegación Desktop -->
-                <div class="hidden md:flex gap-8 items-center">
+                <div class="hidden md:flex gap-6 lg:gap-8 items-center">
                     <a routerLink="/"
                         class="relative px-4 py-2 font-medium text-white hover:text-cyan-400 transition-colors group"
                         (click)="closeMobileMenu()">
@@ -34,7 +35,7 @@
                     <div class="relative">
                         <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"
                             placeholder="Buscar productos..."
-                            class="w-64 px-4 py-2 pl-10 pr-10 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-all" />
+                            class="w-56 lg:w-64 px-4 py-2 pl-10 pr-10 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-all" />
                         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,7 +56,26 @@
                 </div>
 
                 <!-- Acciones -->
-                <div class="flex gap-4 items-center">
+                <div class="flex gap-2.5 sm:gap-3 items-center shrink-0">
+                    <!-- Buscar en móvil -->
+                    <button (click)="toggleSearchBar()"
+                        class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white hover:text-cyan-400 transition-all"
+                        type="button" [attr.aria-pressed]="showSearchBar()">
+                        @if (showSearchBar()) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        } @else {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        }
+                    </button>
+
                     <!-- Carrito -->
                     <button (click)="cartService.toggleCart()"
                         class="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white hover:text-cyan-400 transition-all relative"
@@ -110,11 +130,13 @@
                                 type="button">
                                 Mi Perfil
                             </button>
+                            @if (authService.currentUser()?.rol !== 'ADMIN') {
                             <button (click)="closeUserMenu()" routerLink="/orders"
                                 class="w-full px-3 py-2 text-left text-white hover:bg-white/5 hover:text-cyan-400 rounded-lg transition-all text-sm"
                                 type="button">
                                 Mis Pedidos
                             </button>
+                            }
 
                             @if (authService.currentUser()?.rol === 'ADMIN') {
                             <hr class="border-white/10 my-2" />
@@ -138,7 +160,7 @@
                     } @else {
                     <!-- Botón de Iniciar Sesión -->
                     <button routerLink="/auth/login"
-                        class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                        class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm whitespace-nowrap"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -173,6 +195,39 @@
                 </div>
             </div>
         </div>
+
+        @if (showSearchBar()) {
+        <div class="md:hidden px-4 sm:px-6 pb-4 bg-slate-900/95 border-t border-cyan-500/20 backdrop-blur-xl">
+            <div class="relative">
+                <input #searchInput type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()"
+                    placeholder="Buscar productos..."
+                    class="w-full px-4 py-3 pl-11 pr-24 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-all" />
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+
+                @if (searchQuery()) {
+                <button (click)="clearSearch()"
+                    class="absolute right-16 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                    type="button" title="Limpiar búsqueda">
+                    <span class="sr-only">Limpiar búsqueda</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                }
+
+                <button (click)="onSearch()"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all"
+                    type="button">
+                    Buscar
+                </button>
+            </div>
+        </div>
+        }
 
         <!-- Menú móvil desplegable -->
         @if (showMobileMenu()) {

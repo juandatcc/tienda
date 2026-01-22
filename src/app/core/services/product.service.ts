@@ -19,6 +19,7 @@ export class ProductService {
     // El backend puede devolver distintos DTOs; manejamos ambos
     const categoriaNombre = (resp as any).categoriaNombre ?? '';
     const categoriaId = (resp as any).categoriaId ?? undefined;
+    const imagenUrl = this.normalizeImageUrl((resp as any).imagenUrl);
 
 
     return {
@@ -26,11 +27,27 @@ export class ProductService {
       name: (resp as any).nombre,
       description: (resp as any).descripcion ?? '',
       price: Number((resp as any).precio),
-      imageUrl: (resp as any).imagenUrl ?? '',
+      imageUrl: imagenUrl,
       category: categoriaNombre,
       categoryId: categoriaId,
       stock: (resp as any).stock,
     };
+  }
+
+  /**
+   * Devuelve una URL absoluta para la imagen si el backend envía rutas relativas (p.ej. "/api/assets/1").
+   * Si ya viene absoluta, se respeta.
+   */
+  private normalizeImageUrl(imagenUrl?: string): string | undefined {
+    if (!imagenUrl) return undefined;
+    const trimmed = imagenUrl.trim();
+    if (!trimmed) return undefined;
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+
+    // Quita el sufijo /api para reutilizar el host/base (http://localhost:8080)
+    const base = environment.apiUrl.replace(/\/api$/, '');
+    const needsSlash = trimmed.startsWith('/') ? '' : '/';
+    return `${base}${needsSlash}${trimmed}`;
   }
 
   /**
@@ -39,7 +56,7 @@ export class ProductService {
    */
   getProducts(): Observable<Product[]> {
     return this.http.get<ProductoResponse[]>(this.apiUrl).pipe(
-      map((list) => list.map(this.mapProducto)),
+      map((list) => list.map((item) => this.mapProducto(item))),
       catchError((error) => {
         console.error('Error loading products', error);
         this.notificationService.error('Error al cargar productos');
@@ -55,7 +72,7 @@ export class ProductService {
    */
   getProduct(id: number): Observable<Product | undefined> {
     return this.http.get<ProductoResponse>(`${this.apiUrl}/${id}`).pipe(
-      map(this.mapProducto),
+      map((resp) => this.mapProducto(resp)),
       catchError((error) => {
         console.error(`Error loading product ${id}`, error);
         this.notificationService.error('Error al cargar el producto');
@@ -77,8 +94,11 @@ export class ProductService {
       precio: product.price,
       stock: product.stock,
       categoriaId: product.categoryId,
+      imagenUrl: product.imageUrl,
     };
-    return this.http.post<ProductoAdminResponse>(this.apiUrl, payload).pipe(map(this.mapProducto));
+    return this.http
+      .post<ProductoAdminResponse>(this.apiUrl, payload)
+      .pipe(map((resp) => this.mapProducto(resp)));
   }
 
   /**
@@ -95,10 +115,41 @@ export class ProductService {
       precio: product.price,
       stock: product.stock,
       categoriaId: product.categoryId,
+      imagenUrl: product.imageUrl,
     };
     return this.http
       .put<ProductoAdminResponse>(`${this.apiUrl}/${id}`, payload)
-      .pipe(map(this.mapProducto));
+      .pipe(map((resp) => this.mapProducto(resp)));
+  }
+
+  /**
+   * Crea un producto cargando la imagen como archivo multipart.
+   */
+  createProductWithImage(product: Product, file: File): Observable<Product> {
+    if (!product.categoryId) throw new Error('categoryId is required to create a product');
+    const formData = new FormData();
+    formData.append('nombre', product.name);
+    formData.append('descripcion', product.description ?? '');
+    formData.append('precio', String(product.price));
+    formData.append('stock', String(product.stock ?? 0));
+    formData.append('categoriaId', String(product.categoryId));
+    formData.append('imagen', file);
+
+    return this.http
+      .post<ProductoAdminResponse>(`${this.apiUrl}/upload`, formData)
+      .pipe(map((resp) => this.mapProducto(resp)));
+  }
+
+  /**
+   * Sube/actualiza la imagen de un producto existente.
+   */
+  uploadProductImage(id: number, file: File): Observable<Product> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http
+      .post<ProductoAdminResponse>(`${this.apiUrl}/${id}/imagen`, formData)
+      .pipe(map((resp) => this.mapProducto(resp)));
   }
 
   /**

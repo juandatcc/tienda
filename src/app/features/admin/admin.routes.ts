@@ -10,11 +10,11 @@ export const ADMIN_ROUTES: Routes = [
     loadComponent: () => import('./product-list/product-list.component').then(m => m.ProductListComponent)
   },
   {
-    path: 'new',
+    path: 'products/new',
     loadComponent: () => import('./product-form/product-form.component').then(m => m.ProductFormComponent)
   },
   {
-    path: ':id/edit',
+    path: 'products/:id/edit',
     loadComponent: () => import('./product-form/product-form.component').then(m => m.ProductFormComponent)
   }
 ];

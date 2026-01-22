@@ -21,9 +21,7 @@ export class ServerCartService {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${productoId}`);
   }
 
-  updateCart(payload: {
-    items: Array<{ productoId: number; cantidad: number }>;
-  }): Observable<CarritoResponse> {
+  updateCart(payload: { productoId: number; cantidad: number }): Observable<CarritoResponse> {
     return this.http.put<CarritoResponse>(`${this.apiUrl}/actualizar`, payload);
   }
 }

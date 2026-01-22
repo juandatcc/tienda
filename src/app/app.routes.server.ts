@@ -11,7 +11,7 @@ export const serverRoutes: ServerRoute[] = [
     },
   },
   {
-    path: 'admin/:id/edit',
+    path: 'admin/products/:id/edit',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () => {
       // En una aplicación real, esto obtenería los IDs de los productos a editar

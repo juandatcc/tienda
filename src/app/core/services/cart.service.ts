@@ -185,12 +185,25 @@ export class CartService {
         },
         error: (err) => {
           console.error('Error adding to server cart', err);
-          this.notificationService.error('Error al añadir producto');
+          // Si el token es inválido o sin rol, caemos a modo local
+          if (err?.status === 401 || err?.status === 403) {
+            // Limpia token inválido para evitar futuros 403 repetidos
+            if (typeof localStorage !== 'undefined') localStorage.removeItem('token');
+            this.notificationService.warning('Sesión inválida, usando carrito local');
+            this.addToLocalCart(product);
+          } else {
+            this.notificationService.error('Error al añadir producto');
+          }
         },
       });
       return;
     }
 
+    this.addToLocalCart(product);
+  }
+
+  /** Añade al carrito local (sin backend) con validación de stock. */
+  private addToLocalCart(product: Product) {
     this.items.update((items) => {
       const existing = items.find((i) => i.product.id === product.id);
       if (existing) {
@@ -282,7 +295,7 @@ export class CartService {
 
       // Actualizar en el servidor
       this.serverCart
-        .updateCart({ items: [{ productoId: productId, cantidad: quantity }] })
+        .updateCart({ productoId: productId, cantidad: quantity })
         .subscribe({
           next: (resp) => {
             // Sincronizar con la respuesta del servidor

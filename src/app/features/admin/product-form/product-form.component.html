@@ -1,39 +1,45 @@
 <div class="min-h-screen bg-slate-950 p-4 md:p-8">
     <div class="max-w-3xl mx-auto">
-        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <button type="button" routerLink="/admin/products"
+                class="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-300 bg-slate-800/60 border border-white/10 rounded-lg hover:bg-slate-800 hover:text-white transition">
+                <span class="text-lg">←</span>
+                Volver
+            </button>
+        </div>
         <div class="mb-8">
             <h1 class="text-3xl font-extrabold text-white mb-2">
                 {{ isEditing() ? 'Editar Producto' : 'Agregar Nuevo Producto' }}
             </h1>
-            <p class="text-slate-400">Complete el formulario para {{ isEditing() ? 'actualizar' : 'agregar' }} el
-                producto</p>
+            <p class="text-slate-400">
+                Complete el formulario para {{ isEditing() ? 'actualizar' : 'agregar' }} el producto
+            </p>
         </div>
 
         <form [formGroup]="productForm" (ngSubmit)="onSubmit()"
             class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-8 space-y-6">
-            <!-- Nombre -->
             <div>
                 <label for="name" class="block text-sm font-semibold text-white mb-2">Nombre del Producto</label>
                 <input type="text" id="name" formControlName="name"
                     class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
                     placeholder="Ej: Laptop Dell XPS 15">
-                @if (productForm.get('name')?.invalid && productForm.get('name')?.touched) {
-                <p class="mt-2 text-sm text-red-400">El nombre es obligatorio.</p>
-                }
+                <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
+                    class="mt-2 text-sm text-red-400">
+                    El nombre es obligatorio.
+                </div>
             </div>
 
-            <!-- Descripción -->
             <div>
                 <label for="description" class="block text-sm font-semibold text-white mb-2">Descripción</label>
                 <textarea id="description" formControlName="description" rows="4"
                     class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
                     placeholder="Describe las características del producto..."></textarea>
-                @if (productForm.get('description')?.invalid && productForm.get('description')?.touched) {
-                <p class="mt-2 text-sm text-red-400">La descripción es obligatoria.</p>
-                }
+                <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+                    class="mt-2 text-sm text-red-400">
+                    La descripción es obligatoria.
+                </div>
             </div>
 
-            <!-- Precio y Stock -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="price" class="block text-sm font-semibold text-white mb-2">Precio</label>
@@ -45,23 +51,23 @@
                             class="w-full pl-8 pr-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
                             placeholder="0">
                     </div>
-                    @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
-                    <p class="mt-2 text-sm text-red-400">Se requiere un precio válido.</p>
-                    }
+                    <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+                        class="mt-2 text-sm text-red-400">
+                        Se requiere un precio válido.
+                    </div>
                 </div>
-
                 <div>
                     <label for="stock" class="block text-sm font-semibold text-white mb-2">Inventario</label>
                     <input type="number" id="stock" formControlName="stock"
                         class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
                         placeholder="0">
-                    @if (productForm.get('stock')?.invalid && productForm.get('stock')?.touched) {
-                    <p class="mt-2 text-sm text-red-400">Se requiere un inventario válido.</p>
-                    }
+                    <div *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched"
+                        class="mt-2 text-sm text-red-400">
+                        Se requiere un inventario válido.
+                    </div>
                 </div>
             </div>
 
-            <!-- Categoría -->
             <div>
                 <label for="category" class="block text-sm font-semibold text-white mb-2">Categoría</label>
                 <div class="relative">
@@ -71,38 +77,45 @@
                         <option *ngFor="let c of categories()" [value]="c.idCategoria" class="bg-slate-800">{{ c.nombre
                             }}</option>
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <div class="absolute inset-y-0 right-0 flex items seamlessly center pr-3 pointer-events-none">
                         <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </div>
                 </div>
-                @if (categories().length === 0) {
-                <p class="mt-2 text-sm text-amber-400">⚠️ No hay categorías disponibles. Crea una categoría primero.</p>
-                }
-                @if (productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched) {
-                <p class="mt-2 text-sm text-red-400">La categoría es obligatoria.</p>
-                }
+                <div *ngIf="categories().length === 0" class="mt-2 text-sm text-amber-400">
+                    ⚠️ No hay categorías disponibles. Crea una categoría primero.
+                </div>
+                <div *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched"
+                    class="mt-2 text-sm text-red-400">
+                    La categoría es obligatoria.
+                </div>
             </div>
 
-            <!-- URL de Imagen -->
-            <div>
-                <label for="imageUrl" class="block text-sm font-semibold text-white mb-2">URL de la Imagen</label>
-                <input type="text" id="imageUrl" formControlName="imageUrl"
-                    (input)="onImageUrlChange($any($event.target).value)"
-                    class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                    placeholder="https://ejemplo.com/imagen.jpg">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="imageUrl" class="block text-sm font-semibold text-white mb-2">URL de la Imagen</label>
+                    <input type="text" id="imageUrl" formControlName="imageUrl"
+                        (input)="onImageUrlChange($any($event.target).value)"
+                        class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                        placeholder="https://ejemplo.com/imagen.jpg">
+                    <p class="mt-2 text-xs text-slate-400">Puedes pegar una URL pública si ya está hosteada.</p>
+                </div>
+
+                <div>
+                    <label for="imageFile" class="block text-sm font-semibold text-white mb-2">O sube un archivo</label>
+                    <input id="imageFile" type="file" accept="image/*" (change)="onImageFileSelected($event)"
+                        class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors file:mr-3 file:px-3 file:py-2 file:rounded-md file:border-0 file:bg-cyan-600 file:text-white file:cursor-pointer"
+                        title="Selecciona un archivo de imagen para subir" />
+                    <p class="mt-2 text-xs text-slate-400">Si subes archivo, se usará ese y se ignorará la URL.</p>
+                </div>
             </div>
 
-            <!-- Vista previa de Imagen -->
-            @if (imagePreview()) {
-            <div class="rounded-xl border border-white/10 bg-slate-800/30 p-4">
+            <div *ngIf="imagePreview()" class="rounded-xl border border-white/10 bg-slate-800/30 p-4">
                 <p class="text-sm font-semibold text-white mb-3">Vista Previa</p>
                 <img [src]="imagePreview()" alt="Preview" class="w-full h-64 object-cover rounded-lg bg-slate-800">
             </div>
-            }
 
-            <!-- Acciones -->
             <div class="flex justify-end gap-4 pt-6 border-t border-white/10">
                 <button type="button" routerLink="/admin/products"
                     class="px-6 py-3 text-sm font-semibold text-slate-300 bg-slate-800/50 border border-white/10 rounded-lg hover:bg-slate-800 hover:text-white transition-all">

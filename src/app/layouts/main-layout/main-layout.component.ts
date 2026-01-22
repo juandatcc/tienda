@@ -18,7 +18,7 @@ import { ToastComponent } from "../../shared/ui/toast/toast.component";
 
 // Componente que define el layout principal de la aplicación
 export class MainLayoutComponent {
-  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInput') searchInput?: ElementRef<HTMLInputElement>;
 
   // Señales para controlar estados del header
   mobileMenuOpen = signal(false);
@@ -48,6 +48,7 @@ export class MainLayoutComponent {
 
   toggleMobileMenu() {
     this.mobileMenuOpen.update(v => !v);
+    this.closeSearchBar();
   }
 
   toggleUserMenu() {
@@ -56,6 +57,7 @@ export class MainLayoutComponent {
 
   closeMobileMenu() {
     this.mobileMenuOpen.set(false);
+    this.closeSearchBar();
   }
 
   closeUserMenu() {
@@ -70,6 +72,7 @@ export class MainLayoutComponent {
     if (query) {
       this.router.navigate(['/products'], { queryParams: { busqueda: query } });
       this.closeMobileMenu();
+      this.closeSearchBar();
     }
   }
 
@@ -79,6 +82,21 @@ export class MainLayoutComponent {
   clearSearch() {
     this.searchQuery.set('');
     this.router.navigate(['/products']);
+    this.closeSearchBar();
+  }
+
+  toggleSearchBar() {
+    this.closeMobileMenu();
+    const next = !this.showSearchBar();
+    this.showSearchBar.set(next);
+
+    if (next) {
+      setTimeout(() => this.searchInput?.nativeElement?.focus(), 0);
+    }
+  }
+
+  closeSearchBar() {
+    this.showSearchBar.set(false);
   }
 }
 

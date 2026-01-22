@@ -1,8 +1,9 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/models/product.model';
+import { NotificationService } from '../../../core/services/notification.service';
 
 /**
  * Componente administrativo para gestionar productos.
@@ -16,6 +17,8 @@ import { Product } from '../../../core/models/product.model';
 })
 export class ProductListComponent implements OnInit {
   private productService = inject(ProductService);
+  private notificationService = inject(NotificationService);
+  private router = inject(Router);
   products = signal<Product[]>([]);
 
   ngOnInit() {
@@ -41,5 +44,28 @@ export class ProductListComponent implements OnInit {
         this.loadProducts();
       });
     }
+  }
+
+  onEdit(productId: number) {
+    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
+    if (!token) {
+      this.notificationService.error('Debes iniciar sesión como administrador');
+      this.router.navigate(['/auth/login']);
+      return;
+    }
+
+    try {
+      const userRaw = localStorage.getItem('user');
+      const user = userRaw ? JSON.parse(userRaw) : null;
+      if (!user || user.rol !== 'ADMIN') {
+        this.notificationService.error('Solo un administrador puede editar productos');
+        this.router.navigate(['/']);
+        return;
+      }
+    } catch (e) {
+      console.warn('No se pudo leer el usuario del localStorage', e);
+    }
+
+    this.router.navigate(['/admin/products', productId, 'edit']);
   }
 }

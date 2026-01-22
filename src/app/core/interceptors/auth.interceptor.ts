@@ -46,16 +46,18 @@ export class AuthInterceptor implements HttpInterceptor {
     // Intentar obtener el token de localStorage (solo en navegador, no en SSR)
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
 
-    if (token) {
-      // Clonar la petición añadiendo el header de autorización
+    // No adjuntar token para endpoints públicos GET (productos, categorías)
+    const isPublicGet =
+      req.method === 'GET' &&
+      (req.url.includes('/api/productos') || req.url.includes('/api/categorias'));
+
+    if (token && !isPublicGet) {
       const cloned = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       });
-      // Enviar la petición modificada
       return next.handle(cloned);
     }
 
-    // Si no hay token, enviar la petición original sin modificar
     return next.handle(req);
   }
 }
