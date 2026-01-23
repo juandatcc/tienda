@@ -24,6 +24,12 @@ export class LoginComponent {
 
   loading = signal(false);
   error = signal('');
+  showPassword = signal(false);
+
+  togglePasswordVisibility() {
+    this.showPassword.update(v => !v);
+  }
+  v: any;
 
   /**
    * Verifica si el campo es inválido para mostrar errores visuales.
@@ -41,9 +47,9 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.loading.set(true);
       this.error.set('');
-      
+
       const { email, password } = this.loginForm.value;
-      
+
       this.authService.login({ email: email!, password: password! }).subscribe({
         next: () => {
           this.router.navigate(['/']);

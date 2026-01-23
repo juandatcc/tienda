@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { CategoryService } from '../../../core/services/category.service';
+import { Product } from '../../../core/models/product.model';
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
     totalProducts = signal(0);
     totalCategories = signal(0);
     lowStockProducts = signal(0);
-    recentProducts = signal<any[]>([]);
+    recentProducts = signal<Product[]>([]);
     loading = signal(true);
 
     ngOnInit() {

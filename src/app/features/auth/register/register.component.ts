@@ -27,6 +27,11 @@ export class RegisterComponent {
 
   loading = signal(false);
   error = signal('');
+  showPassword = signal(false);
+
+  togglePasswordVisibility() {
+    this.showPassword.update(v => !v);
+  }
 
   /**
    * Verifica si un campo del formulario es inválido y ha sido tocado.

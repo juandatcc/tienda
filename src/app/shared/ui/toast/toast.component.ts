@@ -42,7 +42,7 @@ import { NotificationService } from '../../../core/services/notification.service
           <p class="text-sm font-medium flex-1">{{ notification.message }}</p>
 
           <!-- Botón cerrar -->
-          <button 
+          <button
             (click)="notificationService.remove(notification.id)"
             class="shrink-0 hover:opacity-70 transition-opacity">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

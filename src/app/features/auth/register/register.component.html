@@ -1,55 +1,90 @@
-<div class="flex flex-col items-center justify-center min-h-[70vh] px-4">
-    <!-- Logo centrado solo en móvil -->
-    <a routerLink="/" class="md:hidden flex justify-center w-full mb-6 select-none" title="Ir al inicio">
-        <span
-            class="text-2xl font-bold bg-linear-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">TechHub</span>
-    </a>
-    <div class="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl p-8">
-        <h1 class="text-2xl font-bold text-white mb-2">Crear Cuenta</h1>
-        <p class="text-neutral-400 mb-6">Únete a nosotros y disfruta de la experiencia completa.</p>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
-            <div class="flex flex-col gap-2">
-                <label for="fullName" class="text-sm font-medium text-blue-300">Nombre Completo</label>
-                <input type="text" id="fullName" formControlName="fullName"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    [class.border-red-500]="isInvalid('fullName')" placeholder="Juan Pérez">
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="email" class="text-sm font-medium text-blue-300">Email</label>
-                <input type="email" id="email" formControlName="email"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="password" class="text-sm font-medium text-blue-300">Contraseña</label>
-                <input type="password" id="password" formControlName="password"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="phone" class="text-sm font-medium text-blue-300">Teléfono</label>
-                <input type="tel" id="phone" formControlName="phone"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    placeholder="+57 300 123 4567">
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="address" class="text-sm font-medium text-blue-300">Dirección</label>
-                <input type="text" id="address" formControlName="address"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    placeholder="Calle 123 # 45-67">
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="adminCode" class="text-sm font-medium text-blue-300">Código de Administrador
-                    (Opcional)</label>
-                <input type="text" id="adminCode" formControlName="adminCode"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    placeholder="Código secreto">
-            </div>
-            <div *ngIf="error()" class="px-4 py-2 bg-red-900/80 text-red-300 rounded-lg text-sm">{{ error() }}</div>
-            <app-button type="submit" [fullWidth]="true" [loading]="loading()">Registrarse</app-button>
-            <p class="text-center text-sm text-neutral-400">¿Ya tienes cuenta?
-                <a routerLink="../login" class="text-blue-400 hover:underline">Inicia Sesión</a>
-            </p>
-        </form>
+<div class="space-y-8">
+    <div class="space-y-2">
+        <p class="text-sm uppercase tracking-[0.12em] text-emerald-300/80">Registro</p>
+        <h1 class="text-3xl font-bold">Crear cuenta</h1>
+        <p class="text-neutral-400">Únete a nosotros y disfruta de la experiencia completa.</p>
     </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+        <div class="flex flex-col gap-2">
+            <label for="fullName" class="text-sm font-medium text-blue-200">Nombre completo</label>
+            <input type="text" id="fullName" formControlName="fullName"
+                class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                [class.border-red-500]="isInvalid('fullName')" placeholder="Juan Pérez" autocomplete="name">
+            <p *ngIf="isInvalid('fullName')" class="text-red-400 text-xs">Nombre inválido</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label for="email" class="text-sm font-medium text-blue-200">Email</label>
+            <input type="email" id="email" formControlName="email"
+                class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com" autocomplete="email">
+            <p *ngIf="isInvalid('email')" class="text-red-400 text-xs">Email inválido</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+                <label for="password" class="text-sm font-medium text-blue-200">Contraseña</label>
+                <span class="text-xs text-neutral-400">Mínimo 8 caracteres</span>
+            </div>
+            <div class="relative">
+                <input [type]="showPassword() ? 'text' : 'password'" id="password" formControlName="password"
+                    class="w-full px-4 py-3 pr-12 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••" autocomplete="new-password">
+                <button type="button" (click)="togglePasswordVisibility()"
+                    class="absolute inset-y-0 right-3 flex items-center text-neutral-400 hover:text-white focus:outline-none"
+                    aria-label="Mostrar u ocultar contraseña" title="Mostrar u ocultar contraseña">
+                    <span *ngIf="!showPassword(); else eyeOffReg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </span>
+                    <ng-template #eyeOffReg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m3 3 18 18" />
+                            <path d="M10.58 10.58A2 2 0 0 0 12 14a2 2 0 0 0 1.42-.58" />
+                            <path d="M16.24 16.24A10.94 10.94 0 0 1 12 17c-7 0-11-7-11-7a21.77 21.77 0 0 1 5.06-5.88" />
+                            <path d="M14.12 5.1a10.43 10.43 0 0 1 6.83 4.9s-1.64 2.94-4.52 4.65" />
+                        </svg>
+                    </ng-template>
+                </button>
+            </div>
+            <p *ngIf="isInvalid('password')" class="text-red-400 text-xs">La contraseña es obligatoria</p>
+            <p class="text-xs text-neutral-400">Usa mayúsculas, números y símbolos para mayor seguridad.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col gap-2">
+                <label for="phone" class="text-sm font-medium text-blue-200">Teléfono</label>
+                <input type="tel" id="phone" formControlName="phone"
+                    class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                    placeholder="+57 300 123 4567" autocomplete="tel">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="address" class="text-sm font-medium text-blue-200">Dirección</label>
+                <input type="text" id="address" formControlName="address"
+                    class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                    placeholder="Calle 123 # 45-67" autocomplete="street-address">
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label for="adminCode" class="text-sm font-medium text-blue-200">Código de Administrador (opcional)</label>
+            <input type="text" id="adminCode" formControlName="adminCode"
+                class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                placeholder="Código secreto">
+        </div>
+
+        <div *ngIf="error()" class="px-4 py-3 bg-red-900/80 text-red-300 rounded-lg text-sm border border-red-500/40">{{
+            error() }}</div>
+
+        <app-button type="submit" [fullWidth]="true" [loading]="loading()"
+            class="shadow-emerald-900/30">Registrarse</app-button>
+        <p class="text-center text-sm text-neutral-400">¿Ya tienes cuenta?
+            <a routerLink="../login" class="text-blue-400 hover:underline">Inicia Sesión</a>
+        </p>
+    </form>
 </div>

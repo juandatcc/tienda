@@ -1,34 +1,60 @@
-<div class="flex flex-col items-center justify-center min-h-[70vh] px-4">
-    <!-- Logo centrado solo en móvil -->
-    <a routerLink="/" class="md:hidden flex justify-center w-full mb-6 select-none" title="Ir al inicio">
-        <span
-            class="text-2xl font-bold bg-linear-to-r from-slate-100 via-slate-50 to-blue-200 bg-clip-text text-transparent tracking-tight">TechHub</span>
-    </a>
-    <div class="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl p-8">
-        <h1 class="text-2xl font-bold text-white mb-2">Bienvenido de nuevo</h1>
-        <p class="text-neutral-400 mb-6">Ingresa tus credenciales para acceder a tu cuenta.</p>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
-            <div class="flex flex-col gap-2">
-                <label for="email" class="text-sm font-medium text-blue-300">Email</label>
-                <input type="email" id="email" formControlName="email"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com">
-                <p *ngIf="isInvalid('email')" class="text-red-400 text-xs mt-1">Email inválido</p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between">
-                    <label for="password" class="text-sm font-medium text-blue-300">Contraseña</label>
-                    <a href="#" class="text-xs text-blue-400 hover:underline">¿Olvidaste tu contraseña?</a>
-                </div>
-                <input type="password" id="password" formControlName="password"
-                    class="w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-700 text-white focus:outline-none focus:border-blue-500 transition"
-                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••">
-            </div>
-            <div *ngIf="error()" class="px-4 py-2 bg-red-900/80 text-red-300 rounded-lg text-sm">{{ error() }}</div>
-            <app-button type="submit" [fullWidth]="true" [loading]="loading()">Iniciar Sesión</app-button>
-            <p class="text-center text-sm text-neutral-400">¿No tienes cuenta?
-                <a routerLink="../register" class="text-blue-400 hover:underline">Regístrate</a>
-            </p>
-        </form>
+<div class="space-y-8">
+    <div class="space-y-2">
+        <p class="text-sm uppercase tracking-[0.12em] text-blue-300/80">Acceso</p>
+        <h1 class="text-3xl font-bold">Bienvenido de nuevo</h1>
+        <p class="text-neutral-400">Ingresa tus credenciales para acceder a tu cuenta.</p>
     </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+        <div class="flex flex-col gap-2">
+            <label for="email" class="text-sm font-medium text-blue-200">Email</label>
+            <input type="email" id="email" formControlName="email"
+                class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                [class.border-red-500]="isInvalid('email')" placeholder="ejemplo@correo.com" autocomplete="email">
+            <p *ngIf="isInvalid('email')" class="text-red-400 text-xs">Email inválido</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+                <label for="password" class="text-sm font-medium text-blue-200">Contraseña</label>
+                <a href="#" class="text-xs text-blue-400 hover:underline">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="relative">
+                <input [type]="showPassword() ? 'text' : 'password'" id="password" formControlName="password"
+                    class="w-full px-4 py-3 pr-12 rounded-xl bg-neutral-950 border border-neutral-800 text-white focus:outline-none focus:border-blue-500 transition"
+                    [class.border-red-500]="isInvalid('password')" placeholder="••••••••"
+                    autocomplete="current-password">
+                <button type="button" (click)="togglePasswordVisibility()"
+                    class="absolute inset-y-0 right-3 flex items-center text-neutral-400 hover:text-white focus:outline-none"
+                    aria-label="Mostrar u ocultar contraseña" title="Mostrar u ocultar contraseña">
+                    <span *ngIf="!showPassword(); else eyeOff">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </span>
+                    <ng-template #eyeOff>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m3 3 18 18" />
+                            <path d="M10.58 10.58A2 2 0 0 0 12 14a2 2 0 0 0 1.42-.58" />
+                            <path d="M16.24 16.24A10.94 10.94 0 0 1 12 17c-7 0-11-7-11-7a21.77 21.77 0 0 1 5.06-5.88" />
+                            <path d="M14.12 5.1a10.43 10.43 0 0 1 6.83 4.9s-1.64 2.94-4.52 4.65" />
+                        </svg>
+                    </ng-template>
+                </button>
+            </div>
+            <p *ngIf="isInvalid('password')" class="text-red-400 text-xs">La contraseña es obligatoria</p>
+        </div>
+
+        <div *ngIf="error()" class="px-4 py-3 bg-red-900/80 text-red-300 rounded-lg text-sm border border-red-500/40">{{
+            error() }}</div>
+
+        <app-button type="submit" [fullWidth]="true" [loading]="loading()" class="shadow-blue-900/30">Iniciar
+            Sesión</app-button>
+        <p class="text-center text-sm text-neutral-400">¿No tienes cuenta?
+            <a routerLink="../register" class="text-blue-400 hover:underline">Regístrate</a>
+        </p>
+    </form>
 </div>

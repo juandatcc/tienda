@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
+import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 /**
  * Componente que muestra el carrito de compras como una barra lateral (sidebar).
@@ -17,6 +19,8 @@ import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 export class CartSidebarComponent {
   cartService = inject(CartService);
   router = inject(Router);
+  private authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
 
   /** Cierra el sidebar llamando al servicio */
   close() {
@@ -41,6 +45,14 @@ export class CartSidebarComponent {
    * Cierra el sidebar y navega a la página del carrito.
    */
   goToCheckout() {
+    const user = this.authService.currentUser();
+    if (!user) {
+      this.notificationService.error('Debes iniciar sesión para continuar con el pago');
+      this.close();
+      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: '/cart' } });
+      return;
+    }
+
     this.close();
     this.router.navigate(['/cart']);
   }
